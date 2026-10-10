@@ -1,25 +1,29 @@
-### Nome do projeto;
+# Nome do projeto: Yuri Suplementos
 
-###  Tema escolhido;
+#  Tema escolhido: Sistema de suplementos
 
-### Integrantes do grupo;
+# Integrantes do grupo:
 
-### Responsabilidade principal de cada integrante;
+### Pedro Henrique Medeiros dos Santos
+### Jeizon Gomez
+### João Victor Noberto
 
-### Descrição do sistema;
+# Responsabilidade principal de cada integrante;
 
-### Entidades do sistema;
+# Descrição do sistema;
 
-### Explicação do relacionamento 1:N ;
+# Entidades do sistema:
 
-### Explicação do relacionamento N:N ;
+# Explicação do relacionamento 1:N ;
 
-### Instruções para instalar dependências;
+# Explicação do relacionamento N:N ;
 
-### Instruções para criar ou popular o banco;
+# Instruções para instalar dependências;
 
-### Instruções para executar o sistema;
+# Instruções para criar ou popular o banco;
 
-### Principais dificuldades encontradas;
+# Instruções para executar o sistema;
 
-### Declaração de autoria.
+# Principais dificuldades encontradas;
+
+# Declaração de autoria.
