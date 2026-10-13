@@ -6,8 +6,8 @@ Sistema de produtos
 
 # Integrantes do grupo:
 ### Pedro Henrique Medeiros dos Santos
-### Jeizon Gomez
-### João Victor Noberto
+### Jeizon Gomes da Silva Filho
+### João Victor Noberto Tomaz Santana
 
 # Responsabilidade principal de cada integrante;
 
