@@ -9,9 +9,9 @@ class Usuario(Base):
     __tablename__ = 'usuario'
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    nome: Mapped[str] = mapped_column(String(60))
-    email: Mapped[str] = mapped_column(String(90), unique=True)
-    senha_ou_hash: Mapped[str] = mapped_column(String(220))
+    nome: Mapped[str] = mapped_column(String(60), nullable = False)
+    email: Mapped[str] = mapped_column(String(90), unique=True, nullable = False)
+    senha_ou_hash: Mapped[str] = mapped_column(String(220), nullable = False)
 
     receitas: Mapped[List['Receita']] = relationship(back_populates='usuario')
 
@@ -26,8 +26,8 @@ class Receita(Base):
     __tablename__ = 'receita'
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    descricao: Mapped[str] = mapped_column(String(150))
-    data_criacao: Mapped[str] = mapped_column(String(12))
+    descricao: Mapped[str] = mapped_column(String(150), nullable = False)
+    data_criacao: Mapped[str] = mapped_column(String(12), nullable = False)
 
     usuario_id: Mapped[int] = mapped_column(ForeignKey('usuario.id'))
     usuario: Mapped['Usuario'] = relationship(back_populates='receitas')
@@ -37,9 +37,9 @@ class Produto(Base):
     __tablename__ = 'produto'
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    nome: Mapped[str] = mapped_column(String(80))
-    preco: Mapped[float] = mapped_column(Float)
-    informacao: Mapped[str] = mapped_column(String(90))
+    nome: Mapped[str] = mapped_column(String(80), nullable = False)
+    preco: Mapped[float] = mapped_column(Float, nullable = False)
+    informacao: Mapped[str] = mapped_column(String(90), nullable = False)
 
     receitas: Mapped[List['Receita']] = relationship(secondary=receita_produto, back_populates='produtos')
 
