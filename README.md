@@ -48,7 +48,7 @@ O sistema Yuri Suplementos tem o objetivo de permitir que usuários possam compr
 - `produto_id` (Integer, FK -> produto.id, PK)
 
 # Explicação do relacionamento 1:N ;
-Um usuário pode ter 1 ou mais (N) compras ao longo do tempo enquanto cada compra é única para cada usuario.
+Um usuário pode ter 1 ou mais (N) compras ao longo do tempo enquanto cada compra é única para cada usuario, Um usuário pode ter 1 ou mais (N) carrinhos ao longo do tempo enquanto cada carrinho é único para cada usuario
 
 # Explicação do relacionamento N:N ;
 1 Carrinho pode ter 1 ou mais (N) compras presentes ao mesmo tempo que 1 compra pode constar em 1 ou mais (N) carrinhos. Uma compra pode ter um ou mais produtos nela, da mesma forma que um produto pode aparecer em uma ou mais compras.
