@@ -12,7 +12,7 @@ Sistema de produtos
 # Responsabilidade principal de cada integrante;
 
 # Descrição do sistema;
-O sistema Yuri Suplementos tem o objetivo de permitir que usuários possam comprar produtos a partir da criação de novas receitas (prescrições) cada usuário terá sua própria receita com seus produtos, incluindo nomes dos itens, preços e data da compra realizada. O usuário também pode alterar os dados da receita, como incluir um produto a mais ou a menos e mudar o nome da receita. Como o projeto tem um foco maior em produtos para academia, o sistema conterá diversos tipos de suplementos e pré treinos.
+O sistema Yuri Suplementos tem o objetivo de permitir que usuários possam comprar produtos relacionados a academia, com separação dos itens, compras e carrinhos de cada cliente através do seu id. As compras incluem nomes dos itens, preços, data da compra realizada e comentários opcionais dos clientes. O usuário também pode alterar os dados da compra, como incluir um produto a mais ou a menos, mudar o nome da compra e as descrições daquela compra. Como o projeto tem um foco maior em produtos para academia, o sistema conterá diversos tipos de suplementos e pré-treinos.
 
 # Entidades do sistema:
 ## (OBS) PK se refere a PrimaryKey, FK se refere a ForeignKey para fins de abreviação e a setinha se refere à coluna de origem da ForeignKey.
