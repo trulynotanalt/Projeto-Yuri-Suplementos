@@ -1,9 +1,7 @@
 from typing import List
-from sqlalchemy import String, Float, ForeignKey, Table, Column
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-
-class Base(DeclarativeBase):
-    pass
+from sqlalchemy import String, Float, ForeignKey, Table, Column, Date
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from database import Base
 
 class Usuario(Base):
     __tablename__ = 'usuario'
@@ -13,25 +11,43 @@ class Usuario(Base):
     email: Mapped[str] = mapped_column(String(90), unique=True, nullable = False)
     senha_ou_hash: Mapped[str] = mapped_column(String(220), nullable = False)
 
-    receitas: Mapped[List['Receita']] = relationship(back_populates='usuario')
+    carrinho: Mapped[List['Carrinho']] = relationship(back_populates='usuario')
+    compras: Mapped[List['Compra']] = relationship(back_populates='usuario')
 
-receita_produto = Table(
-    'receita_produto',
+carrinho_produto = Table(
+    'carrinho_produto',
     Base.metadata,
-    Column('receita_id', ForeignKey('receita.id'), primary_key=True),
+    Column('carrinho_id', ForeignKey('carrinho.id'), primary_key=True),
     Column('produto_id', ForeignKey('produto.id'), primary_key=True)
 )
 
-class Receita(Base):
-    __tablename__ = 'receita'
+compra_produto = Table(
+    'compra_produto',
+    Base.metadata,
+    Column('compra_id', ForeignKey('compra.id'), primary_key=True),
+    Column('produto_id', ForeignKey('produto.id'), primary_key=True)
+)
+
+
+class Compra(Base):
+    __tablename__ = 'compra'
 
     id: Mapped[int] = mapped_column(primary_key=True)
     descricao: Mapped[str] = mapped_column(String(150), nullable = False)
-    data_criacao: Mapped[str] = mapped_column(String(12), nullable = False)
+    data_criacao: Mapped[Date] =  mapped_column(Date, nullable = False)
 
     usuario_id: Mapped[int] = mapped_column(ForeignKey('usuario.id'))
-    usuario: Mapped['Usuario'] = relationship(back_populates='receitas')
-    produtos: Mapped[List['Produto']] = relationship(secondary=receita_produto, back_populates='receitas')
+    usuario: Mapped['Usuario'] = relationship(back_populates='compras')    
+    produtos_compra: Mapped[List['Produto']] = relationship(secondary=compra_produto, back_populates='compras')
+    
+
+class Carrinho(Base):
+    __tablename__ = 'carrinho'
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    usuario_id: Mapped[int] = mapped_column(ForeignKey('usuario.id'))
+    usuario: Mapped['Usuario'] = relationship(back_populates='carrinho')    
+    produtos: Mapped[List['Produto']] = relationship(secondary=carrinho_produto, back_populates='carrinho')
 
 class Produto(Base):
     __tablename__ = 'produto'
@@ -40,6 +56,6 @@ class Produto(Base):
     nome: Mapped[str] = mapped_column(String(80), nullable = False)
     preco: Mapped[float] = mapped_column(Float, nullable = False)
     informacao: Mapped[str] = mapped_column(String(90), nullable = False)
-
-    receitas: Mapped[List['Receita']] = relationship(secondary=receita_produto, back_populates='produtos')
+    compras: Mapped[List['Compra']] = relationship(secondary=compra_produto, back_populates='produtos_compra')
+    carrinho: Mapped[List['Carrinho']] = relationship(secondary=carrinho_produto, back_populates='produtos')
 
