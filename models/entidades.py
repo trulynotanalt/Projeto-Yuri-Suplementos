@@ -9,7 +9,7 @@ class Usuario(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     nome: Mapped[str] = mapped_column(String(60), nullable = False)
     email: Mapped[str] = mapped_column(String(90), unique=True, nullable = False)
-    senha_ou_hash: Mapped[str] = mapped_column(String(220), nullable = False)
+    senha_hash: Mapped[str] = mapped_column(String(220), nullable = False)
 
     carrinho: Mapped[List['Carrinho']] = relationship(back_populates='usuario')
     compras: Mapped[List['Compra']] = relationship(back_populates='usuario')
@@ -46,7 +46,7 @@ class Carrinho(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     usuario_id: Mapped[int] = mapped_column(ForeignKey('usuario.id'))
-    usuario: Mapped['Usuario'] = relationship(back_populates='carrinho')    
+     
     produtos: Mapped[List['Produto']] = relationship(secondary=carrinho_produto, back_populates='carrinho')
 
 class Produto(Base):
@@ -55,7 +55,8 @@ class Produto(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     nome: Mapped[str] = mapped_column(String(80), nullable = False)
     preco: Mapped[float] = mapped_column(Float, nullable = False)
-    informacao: Mapped[str] = mapped_column(String(90), nullable = False)
+    categoria: Mapped[str] = mapped_column(String(40), nullable = False)
+    informacao: Mapped[str] = mapped_column(String(400), nullable = False)
     compras: Mapped[List['Compra']] = relationship(secondary=compra_produto, back_populates='produtos_compra')
     carrinho: Mapped[List['Carrinho']] = relationship(secondary=carrinho_produto, back_populates='produtos')
 
