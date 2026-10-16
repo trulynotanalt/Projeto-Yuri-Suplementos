@@ -9,7 +9,7 @@ class Usuario(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     nome: Mapped[str] = mapped_column(String(60), nullable = False)
     email: Mapped[str] = mapped_column(String(90), unique=True, nullable = False)
-    senha_ou_hash: Mapped[str] = mapped_column(String(220), nullable = False)
+    senha_hash: Mapped[str] = mapped_column(String(220), nullable = False)
 
     carrinho: Mapped[List['Carrinho']] = relationship(back_populates='usuario')
     compras: Mapped[List['Compra']] = relationship(back_populates='usuario')
