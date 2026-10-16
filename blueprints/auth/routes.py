@@ -19,13 +19,13 @@ def login():
 
     if usuario is None:
         flash('Email inválido')
-        return render_template(redirect('login'))
+        return redirect(url_for('auth.login'))
     
     if (check_password_hash(usuario.senha_hash, senha)):
         session['usuario_nome'] = usuario.nome
         session['usuario_id'] = usuario.id
 
-        return redirect(url_for('index', usuario=usuario))
+        return redirect(url_for('home', usuario=usuario))
 
 @auth_bp('/auth/cadastro', methods=['GET', 'POST'])
 def cadastro():
@@ -45,7 +45,7 @@ def cadastro():
 
     if usuario is None:
         flash('Alguma informação está inválida')
-        return render_template(redirect('cadastro'))
+        return redirect(url_for('auth.cadastro'))
     
     session['usuario_nome'] = usuario.nome
     session['usuario_id'] = usuario.id
@@ -56,7 +56,7 @@ def cadastro():
 def logout():
     if 'usuario_id' not in session:
         flash('Você não está logado')
-        return redirect(url_for('login'))
+        return redirect(url_for('auth.login'))
 
     session.pop('usuario_id')
     session.pop('usuario_nome')

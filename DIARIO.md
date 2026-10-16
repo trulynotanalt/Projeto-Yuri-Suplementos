@@ -89,10 +89,17 @@ Não precisei resolver, pois não houve dificuldade.
 ## O que foi feito
 - Criação dos métodos do usuario em models - Criação, atualização, delete e receber o id da sessão -
 - Criação das rotas do Auth: login, logout e cadastro
-- Criação da pasta services para centralização dos métodos que necessitam de conexão com o banco e lógica de negócio.
+- Criação da pasta services para centralização dos métodos que necessitam de conexão com o banco e lógica de negócio
+- Criação das pastas dos templates para os devidos Blueprints bem como suas inicializações e importações nos routes.py
+- Criação dos services do blueprint produto e controllers dos produtos
+- Criação da lógica do preenchimento do banco de dados em seed.py
+- Criação da coluna categoria na entidade produtos para buscar os produtos pela categoria
+- Correções nas rotas e linkagens nos blueprints Auth e produto
 
 ## Próximo passo
-- Criação do restante das rotas que envolvem a entidade do Usuario
+- Criação do restante das rotas que envolvem a entidade do Usuario, Carrinho e Compra
+- Criar e terminar a Camada View (Templates)
+- Ligar as camadas do MVC para visualização inicial das funcionalidades do projeto
 
 ## Dificuldades encontradas
 
