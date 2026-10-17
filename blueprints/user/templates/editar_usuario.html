@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar informações{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="container auth-wrap">
+  <div class="card auth-card">
+    <h1>Editar informações</h1>
+    <p class="sub">Altere apenas o que quiser e salve as mudanças.</p>
+
+    <form method="post" action="{{ url_for('usuario_editar') }}">
+      <div class="campo">
+        <label for="nome">Nome</label>
+        <input id="nome" name="nome" type="text" required maxlength="60" autocomplete="name" value="{{ usuario.nome }}">
+      </div>
+      <div class="campo">
+        <label for="email">E-mail</label>
+        <input id="email" name="email" type="email" required maxlength="90" autocomplete="email" value="{{ usuario.email }}">
+      </div>
+
+      <div class="form-acoes">
+        <a class="btn btn-contorno" href="{{ url_for('usuario_perfil') }}">Cancelar</a>
+        <button type="submit" class="btn btn-azul">Salvar alterações</button>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}

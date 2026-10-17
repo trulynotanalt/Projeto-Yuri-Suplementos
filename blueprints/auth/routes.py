@@ -58,8 +58,8 @@ def logout():
         flash('Você não está logado')
         return redirect(url_for('auth.login'))
 
-    session.pop('usuario_id')
-    session.pop('usuario_nome')
+    session.pop('usuario_id', None)
+    session.pop('usuario_nome', None)
 
     return redirect(url_for('index'))
 

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Excluir conta{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="container auth-wrap">
+  <div class="card auth-card auth-card-perigo">
+    <h1>Deseja realmente excluir sua conta?</h1>
+
+    <form action="post">
+      <a class="btn btn-contorno" href="{{ url_for('usuario_perfil') }}">Cancelar</a>
+      <a class="btn btn-excluir" href="{{ url_for('usuario_excluir') }}">Excluir Conta</a>
+    </form>
+  </div>
+</section>
+{% endblock %}

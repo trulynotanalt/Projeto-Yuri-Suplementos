@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import preco, icone %}
+
+{% block title %}Meu perfil{% endblock %}
+
+{% block navbar %}
+<header class="perfil-topo">
+  <div class="container perfil-topo-in">
+    <a href="/">Voltar ao início</a>
+    <a class="btn btn-amarelo btn-sm" href="{{ url_for('auth.logout') }}">Sair da conta</a>
+  </div>
+</header>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+{% endblock %}
+
+{% block content %}
+{% set u = usuario if usuario is defined and usuario else none %}
+{% set nome_usuario = u.nome if u else session.get('usuario_nome', '') %}
+{% set compras_usuario = u.compras if u else [] %}
+
+{% set ns = namespace(gasto=0, itens=0) %}
+{% for c in compras_usuario %}
+  {% for p in c.produtos_compra %}
+    {% set ns.gasto = ns.gasto + p.preco %}
+    {% set ns.itens = ns.itens + 1 %}
+  {% endfor %}
+{% endfor %}
+
+<section class="secao">
+  <div class="container perfil-grid">
+
+    <aside class="card">
+      <div class="perfil-avatar" aria-hidden="true">{{ nome_usuario[:1]|upper }}</div>
+      <h1 class="perfil-nome">{{ nome_usuario }}</h1>
+      {% if u %}<p class="perfil-email">{{ u.email }}</p>{% endif %}
+
+      <div class="resumo">
+        <div><strong>{{ compras_usuario|length }}</strong>compras</div>
+        <div><strong>{{ ns.itens }}</strong>produtos</div>
+        <div class="resumo-total"><strong>{{ preco(ns.gasto) }}</strong>total gasto</div>
+      </div>
+
+      <div class="perfil-acoes">
+        <a class="btn btn-azul btn-block" href="{{ url_for('produto.loja') }}">Ir para a loja</a>
+        <a class="btn btn-contorno btn-block" href="/carrinho">Ver carrinho</a>
+      </div>
+    </aside>
+
+    <div>
+      <h2>Minhas compras</h2>
+
+      {% for compra in compras_usuario|sort(attribute='data_criacao', reverse=true) %}
+      <article class="compra">
+        <div class="compra-topo">
+          <div>
+            <h3>{{ compra.descricao }}</h3>
+            <span class="compra-data">{{ compra.data_criacao.strftime('%d/%m/%Y') }}</span>
+          </div>
+          <span class="preco">{{ preco(compra.produtos_compra|sum(attribute='preco')) }}</span>
+        </div>
+        <ul>
+          {% for p in compra.produtos_compra %}
+          <li>
+            <a href="{{ url_for('produto.loja_detalhes', id=p.id) }}"><span aria-hidden="true">{{ icone(p.categoria) }}</span> {{ p.nome }}</a>
+            <span>{{ preco(p.preco) }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </article>
+      {% else %}
+      <div class="card vazio">
+        <h3>Nenhuma compra por aqui ainda</h3>
+        <p>Quando você finalizar um pedido, ele aparece nesta lista.</p>
+        <a class="btn btn-amarelo" href="{{ url_for('produto.loja') }}">Ver produtos</a>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+{% endblock %}
