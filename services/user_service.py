@@ -34,7 +34,7 @@ def create_usuario( nome, email, senha_hash):
     return usuario
 
 
-def update_usuario(id, nome = None, email = None, senha_hash = None):
+def update_usuario(id, nome = None, email = None):
     usuario = get_usuario(id)
 
     if usuario is None:
@@ -45,9 +45,6 @@ def update_usuario(id, nome = None, email = None, senha_hash = None):
 
     if email is not None:
         usuario.email = email
-
-    if senha_hash is not None:
-        usuario.senha_hash = senha_hash
 
     with nova_sessao() as session:
         session.commit()
