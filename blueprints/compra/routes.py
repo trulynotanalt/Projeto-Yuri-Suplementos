@@ -1,0 +1,1 @@
+from blueprints.compra import compra_bp
