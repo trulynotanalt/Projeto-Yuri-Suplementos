@@ -1,4 +1,4 @@
-from database import nova_sessao
+from database import nova_sessao, criar_banco, Base
 from models.entidades import Produto
 
 def popular_banco():
@@ -112,4 +112,5 @@ def popular_banco():
         
 
 if __name__ == "__main__":
+    criar_banco()
     popular_banco()

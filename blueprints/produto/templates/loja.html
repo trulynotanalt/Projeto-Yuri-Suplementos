@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import card_produto %}
+
+{% block title %}Loja{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/produto.css') }}">
+{% endblock %}
+
+{% block content %}
+{% set lista_categorias = categorias if categorias is defined and categorias else ['Bomba', 'Magia Muscular', 'Pré-Treino'] %}
+{% set categoria_ativa = request.args.get('categoria', '') %}
+
+<section class="loja-topo">
+  <div class="container">
+    <h1>Loja</h1>
+    <p>Suplementos, pré-treinos e mais. Busque pelo nome ou filtre por categoria.</p>
+
+    <form class="busca" method="get" action="{{ url_for('produto.loja') }}">
+      <input type="search" name="nome" value="{{ request.args.get('nome', '') }}" placeholder="Buscar produto" aria-label="Buscar produto">
+      <button type="submit" class="btn btn-azul">Buscar</button>
+    </form>
+
+    <nav class="chips" aria-label="Categorias">
+      <a class="chip {{ 'ativo' if not categoria_ativa }}" href="{{ url_for('produto.loja') }}">Todos</a>
+      {% for c in lista_categorias %}
+        <a class="chip {{ 'ativo' if c == categoria_ativa }}" href="{{ url_for('produto.loja', categoria=c) }}">{{ c }}</a>
+      {% endfor %}
+    </nav>
+  </div>
+</section>
+
+<section class="secao">
+  <div class="container">
+    {% if produtos %}
+      <p class="contagem">{{ produtos|length }} produto{{ 's' if produtos|length != 1 }} encontrado{{ 's' if produtos|length != 1 }}</p>
+      <div class="grid-produtos">
+        {% for p in produtos %}{{ card_produto(p) }}{% endfor %}
+      </div>
+    {% else %}
+      <div class="card vazio">
+        <h2>Nenhum produto encontrado</h2>
+        <p>Tente outro nome ou volte para todas as categorias.</p>
+        <a class="btn btn-azul" href="{{ url_for('produto.loja') }}">Ver todos os produtos</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

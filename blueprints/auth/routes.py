@@ -3,7 +3,7 @@ from flask import request, session, flash, redirect, render_template, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
 from services import user_service as service
 
-@auth_bp('/auth/login', methods=['GET', 'POST'])
+@auth_bp.route('/auth/login', methods=['GET', 'POST'])
 def login():
     if 'usuario_nome' in session or 'usuario_id' in session:
         flash('Você já está logado')
@@ -25,9 +25,9 @@ def login():
         session['usuario_nome'] = usuario.nome
         session['usuario_id'] = usuario.id
 
-        return redirect(url_for('home', usuario=usuario))
+        return redirect(url_for('index', usuario=usuario))
 
-@auth_bp('/auth/cadastro', methods=['GET', 'POST'])
+@auth_bp.route('/auth/cadastro', methods=['GET', 'POST'])
 def cadastro():
     if 'usuario_nome' in session or 'usuario_id' in session:
         flash('Você já possui uma conta')
@@ -52,7 +52,7 @@ def cadastro():
 
     return redirect(url_for('index', usuario=usuario))
 
-@auth_bp('/auth/logout')
+@auth_bp.route('/auth/logout')
 def logout():
     if 'usuario_id' not in session:
         flash('Você não está logado')

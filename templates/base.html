@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Início{% endblock %} | YuriSuplements</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+{% block navbar %}
+<header class="navbar">
+  <div class="container navbar-in">
+    <a href="/" class="logo"><span class="logo-marca">⚡</span>YuriSuplements</a>
+
+    <nav class="nav-links" aria-label="Navegação principal">
+      <a href="{{ url_for('produto.loja') }}">Loja</a>
+      <a href="/carrinho">Carrinho{% if carrinho_qtd %}<span class="badge">{{ carrinho_qtd }}</span>{% endif %}</a>
+
+      {% if session.get('usuario_id') %}
+        <a href="/perfil" class="nav-user" aria-label="Meu perfil" title="Meu perfil">
+
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </a>
+         <a href="{{ url_for('auth.logout') }}">Sair</a>
+      {% else %}
+        <a href="{{ url_for('auth.login') }}">Entrar</a>
+      {% endif %}
+    </nav>
+  </div>
+</header>
+{% endblock %}
+
+<main>
+  {% with mensagens = get_flashed_messages(with_categories=true) %}
+    {% if mensagens %}
+    <div class="container">
+      {% for categoria, texto in mensagens %}
+        <div class="flash flash-{{ categoria }}" role="status">{{ texto }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  {% endwith %}
+
+  {% block content %}{% endblock %}
+</main>
+
+{% block footer %}
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <h4>YuriSuplements</h4>
+      <p>Suplementos, pré-treinos e o que mais o seu treino pedir, em um só lugar.</p>
+    </div>
+    <div>
+      <h4>Navegue</h4>
+      <a href="/">Início</a>
+      <a href="{{ url_for('produto.loja') }}">Loja</a>
+      <a href="/carrinho">Carrinho</a>
+    </div>
+    <div>
+      <h4>Sua conta</h4>
+      {% if session.get('usuario_id') %}
+        <a href="/perfil">Meu perfil</a>
+        <a href="{{ url_for('auth.logout') }}">Sair</a>
+      {% else %}
+        <a href="{{ url_for('auth.login') }}">Entrar</a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="container footer-fim">© 2026 YuriSuplements. Suplementos não substituem uma alimentação equilibrada.</div>
+</footer>
+{% endblock %}
+
+{% block scripts %}{% endblock %}
+</body>
+</html>

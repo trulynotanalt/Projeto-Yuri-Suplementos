@@ -1,1 +1,1 @@
-from .entidades import Usuario, Receita, Produto, receita_produto, compra_produto
+from .entidades import Usuario, Carrinho, Compra, Produto, carrinho_produto, compra_produto

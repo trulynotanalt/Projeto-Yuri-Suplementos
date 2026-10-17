@@ -1,0 +1,21 @@
+.faixa-topo{display:flex;justify-content:space-between;align-items:end;gap:1rem;margin-bottom:.8rem}
+.faixa-topo p{margin:0;color:var(--cinza-500)}
+.setas{display:flex;gap:.4rem}
+.setas button{width:40px;height:40px;border-radius:50%;border:2px solid var(--azul-500);background:var(--branco);color:var(--azul-500);font-size:1.3rem;font-weight:800;cursor:pointer}
+.setas button:hover{background:var(--azul-500);color:#fff}
+
+.carrossel{display:flex;gap:1.1rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:.4rem .2rem 1rem;scrollbar-width:thin}
+.slide{flex:0 0 min(270px,80%);scroll-snap-align:start}
+.slide-comentario{flex-basis:min(330px,85%)}
+
+.comentario{display:flex;flex-direction:column;gap:.6rem;height:100%;padding:1.1rem;background:var(--branco);border:1px solid var(--cinza-200);border-left:5px solid var(--verde-500);border-radius:4px 14px 14px 4px}
+.comentario p{margin:0;flex:1}
+.estrelas{color:var(--amarelo-500);letter-spacing:2px}
+.comentario-autor{display:flex;align-items:center;gap:.6rem;font-weight:700}
+.comentario-autor small{display:block;font-weight:400;color:var(--cinza-500)}
+.avatar{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--azul-500);color:#fff;font-weight:800}
+
+.convite{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;padding:1.8rem;background:var(--azul-900);border-radius:14px;color:#fff}
+.convite h2{color:#fff;margin:0 0 .25rem}
+.convite p{margin:0;color:#dbe4ff}
+.slide-vazio{width:100%}

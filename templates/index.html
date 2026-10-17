@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import card_produto %}
+
+{% block title %}Início{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="secao">
+  <div class="container">
+    <div class="faixa-topo">
+      <div>
+        <h2>Sugestões da loja</h2>
+        <p>Produtos em destaque para o seu treino.</p>
+      </div>
+      <div class="setas">
+        <button type="button" data-alvo="sugestoes" data-dir="-1" aria-label="Anterior">‹</button>
+        <button type="button" data-alvo="sugestoes" data-dir="1" aria-label="Próximo">›</button>
+      </div>
+    </div>
+
+    <div class="carrossel" id="sugestoes">
+      {% for p in sugestoes %}
+        <div class="slide">{{ card_produto(p) }}</div>
+      {% else %}
+        <div class="vazio slide-vazio">Novos produtos chegam em breve.</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% set lista_comentarios = comentarios if comentarios is defined and comentarios else [
+  {'autor': 'Rafael M.', 'produto': 'Starters train', 'nota': 5, 'texto': 'Comecei a malhar faz um mês e o Starters train foi perfeito: calorias na medida, com vitaminas e proteínas sem exagero.'},
+  {'autor': 'Camila S.', 'produto': '25-25 power', 'nota': 4, 'texto': 'Braço e perna responderam bem. Mas o aviso é real: usei demais e fiquei um pouco lesada. Com moderação é ótimo.'},
+  {'autor': 'Lucas P.', 'produto': 'A noite treina', 'nota': 5, 'texto': 'Treino de madrugada é comigo. A cafeína com proteína me segurou até a última série.'},
+  {'autor': 'Ana B.', 'produto': 'Alegria do jojo', 'nota': 5, 'texto': 'Parece piada, mas o cuscuz líquido funciona. Fica pronto em 15 minutos e a potência nos treinos subiu muito.'},
+  {'autor': 'Diego F.', 'produto': 'Segredinho dos 40 da Caixa', 'nota': 4, 'texto': 'Ganhei massa rápido, como diz a descrição. O aviso sobre a cabeça lisa também é verdade.'},
+  {'autor': 'Marina T.', 'produto': 'Hirobraço e Nagapeito', 'nota': 5, 'texto': 'São duas bombas em uma só. Braço e peito cresceram em poucas semanas. Me senti como se estivesse em umas certas cidades japonesas.'},
+  {'autor': 'Bruno A.', 'produto': 'Medeiros Growth', 'nota': 5, 'texto': '18 ovos com whey de baunilha: fiquei grandão sem ganhar gordura, e o sabor é ótimo.'},
+  {'autor': 'Henrique L.', 'produto': 'Pó do yuri', 'nota': 4, 'texto': 'É caro, mas é o pó proteico que o próprio Yuri das lendas usava. Meu shape está chegando perto do dele.'}
+] %}
+
+<section class="secao secao-branca">
+  <div class="container">
+    <div class="faixa-topo">
+      <div>
+        <h2>O que dizem sobre os produtos</h2>
+        <p>Avaliações de quem já puxou ferro com eles.</p>
+      </div>
+      <div class="setas">
+        <button type="button" data-alvo="comentarios" data-dir="-1" aria-label="Anterior">‹</button>
+        <button type="button" data-alvo="comentarios" data-dir="1" aria-label="Próximo">›</button>
+      </div>
+    </div>
+
+    <div class="carrossel" id="comentarios">
+      {% for c in lista_comentarios %}
+      <div class="slide slide-comentario">
+        <article class="comentario">
+          <span class="estrelas" aria-label="Nota {{ c.nota }} de 5">{{ '★' * c.nota }}{{ '☆' * (5 - c.nota) }}</span>
+          <p>{{ c.texto }}</p>
+          <div class="comentario-autor">
+            <span class="avatar" aria-hidden="true">{{ c.autor[0] }}</span>
+            <span>{{ c.autor }}<small>sobre {{ c.produto }}</small></span>
+          </div>
+        </article>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="secao">
+  <div class="container">
+    {% if session.get('usuario_id') %}
+      <div class="faixa-topo">
+        <div>
+          <h2>Produtos que você já comprou</h2>
+          <p>Repita o pedido com um clique.</p>
+        </div>
+        <a class="btn btn-contorno btn-sm" href="/perfil">Ver histórico completo</a>
+      </div>
+
+      {% if produtos_comprados %}
+        <div class="grid-produtos">
+          {% for p in produtos_comprados %}{{ card_produto(p) }}{% endfor %}
+        </div>
+      {% else %}
+        <div class="card vazio">
+          <h3>Você ainda não fez nenhuma compra</h3>
+          <p>Escolha seu primeiro suplemento na loja.</p>
+          <a class="btn btn-amarelo" href="{{ url_for('produto.loja') }}">Ir para a loja</a>
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="convite">
+        <div>
+          <h2>Já comprou com a gente?</h2>
+          <p>Entre na sua conta para ver os produtos que você comprou e repetir o pedido.</p>
+        </div>
+        <a class="btn btn-amarelo" href="{{ url_for('auth.login') }}">Entrar na conta</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  var reduzMovimento = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function mover(c, dir) {
+    var s = c && c.firstElementChild;
+    if (!s) return;
+    var passo = s.getBoundingClientRect().width + (parseFloat(getComputedStyle(c).columnGap) || 16);
+    var fim = c.scrollLeft + c.clientWidth >= c.scrollWidth - 4;
+    if (dir > 0 && fim) c.scrollTo({ left: 0, behavior: 'smooth' });
+    else c.scrollBy({ left: dir * passo, behavior: 'smooth' });
+  }
+
+  document.querySelectorAll('[data-alvo]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      mover(document.getElementById(b.dataset.alvo), Number(b.dataset.dir));
+    });
+  });
+
+  document.querySelectorAll('.carrossel').forEach(function (c) {
+    var pausado = false;
+    ['mouseenter', 'focusin'].forEach(function (e) { c.addEventListener(e, function () { pausado = true; }); });
+    ['mouseleave', 'focusout'].forEach(function (e) { c.addEventListener(e, function () { pausado = false; }); });
+    if (!reduzMovimento) setInterval(function () { if (!pausado) mover(c, 1); }, 5000);
+  });
+})();
+</script>
+{% endblock %}
