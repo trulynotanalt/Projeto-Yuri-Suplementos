@@ -34,7 +34,20 @@ Criação das camadas C e V do MCV -- Controlers -- e -- Views -- Contendo as fu
 
 ## Dificuldades encontradas
 
-Criação da tabela entermediaria entre as entidades receita e produto e problemas de importação entre o database.py e entidades.py
+# Data: 17/10/2026
+# Jeizon Gomes Da Silva Filho
+
+## O que foi feito: 
+comecei as rotas do carrinho, parte do html para testar futuramente e criei o arquivo que terá as funções do carrinho.
+## Próximo passo: 
+criar arquivos testes(cru) para testar a funcionalidade.
+## Dificuldades encontradas: 
+esqueci como usar o select(._.).
+## Como resolvi:
+fui na documentação do sqlalchemy.
+
+### https://docs.sqlalchemy.org/en/20/orm/queryguide/select.html
+
 
 ## Como resolvi
 

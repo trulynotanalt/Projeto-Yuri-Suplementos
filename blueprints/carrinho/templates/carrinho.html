@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>carrinho</h1>
+    {% for c in carrinho %}
+        <!-- <p><a href="{{ url_for('produtos.listar', produto_id=produto.id ) }}">{{c.produto.nome}}</a></p> futura otimização aq ou na img -->
+        <!-- <img src="" alt=""> -->
+        <p>{{c.produto.nome}}</p>
+        <p>{{c.produto.preco}}</p>
+        <!-- <a href="{{ url_for('compras.comprar' ) }}">comprar</a> trabalhar aq tbm-->
+    {% endfor %}
+    
+</body>
+</html>
