@@ -1,15 +1,16 @@
 from models import Usuario
 from sqlalchemy import select
+from sqlalchemy.orm import selectinload
 from database import nova_sessao
 
 
 def get_usuario(id):
 
     with nova_sessao() as session:
-        statement = select(Usuario).where(Usuario.id == id)
+        statement = select(Usuario).where(Usuario.id == id).options(selectinload(Usuario.compras))
         user =  session.scalars(statement).first()
 
-    return  user
+    return user
 
 def get_usuario_por_email(email):
     with nova_sessao() as session:
@@ -35,18 +36,19 @@ def create_usuario( nome, email, senha_hash):
 
 
 def update_usuario(id, nome = None, email = None):
-    usuario = get_usuario(id)
-
-    if usuario is None:
-        return None
-
-    if nome is not None:
-        usuario.nome = nome
-
-    if email is not None:
-        usuario.email = email
-
     with nova_sessao() as session:
+        statement = select(Usuario).where(Usuario.id == id)
+        usuario = session.scalars(statement).first()
+
+        if usuario is None:
+            return None
+        
+        if nome is not None:
+            usuario.nome = nome
+    
+        if email is not None:
+            usuario.email = email
+        
         session.commit()
         session.refresh(usuario)
     
