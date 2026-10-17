@@ -46,7 +46,7 @@ class Carrinho(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     usuario_id: Mapped[int] = mapped_column(ForeignKey('usuario.id'))
-     
+    usuario: Mapped['Usuario'] = relationship(back_populates='carrinho')
     produtos: Mapped[List['Produto']] = relationship(secondary=carrinho_produto, back_populates='carrinho')
 
 class Produto(Base):
