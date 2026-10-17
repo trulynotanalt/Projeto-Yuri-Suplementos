@@ -1,6 +1,5 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, DeclarativeBase
-from models import Produto,Receita,Usuario,receita_produto, compra_produto
 
 engine = create_engine("sqlite:///database.db")
 
