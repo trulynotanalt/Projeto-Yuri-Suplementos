@@ -81,13 +81,13 @@ Um usuário pode ter 1 ou mais (N) compras ao longo do tempo enquanto cada compr
 # Instruções para instalar dependências;
 - 1: Criar o ambiente vitual. `py -m venv env`
 
--2: Ativar o ambiente. `.\env\scripts\activate`
+- 2: Ativar o ambiente. `.\env\scripts\activate`
 
--3: Instalar a biblioteca Flask. `pip install Flask`
+- 3: Instalar a biblioteca Flask. `pip install Flask`
 
--4: Instalar a biblioteca do sqlalchemy. `pip install sqlalchemy`
+- 4: Instalar a biblioteca do sqlalchemy. `pip install sqlalchemy`
 
--5: Instalar as dependências do sqlalchemy.orm. `pip install sqlalchemy.orm`
+- 5: Instalar as dependências do sqlalchemy.orm. `pip install sqlalchemy.orm`
 
 # Instruções para criar ou popular o banco;
 - Para criar e popular o banco basta utilizar o comando `python seed.py` após ter realizado a instalação das dependências anteriores.
