@@ -121,3 +121,20 @@ Não houve dificuldade.
 ## Como resolvi
 
 Não precisei resolver, pois não houve dificuldade.
+
+# Data 17/10/2026
+
+## O que foi feito
+- Criação dos templates relacionados ao usuário: editar_usuario, excluir_usuario, login, cadastro, etc
+- Criação das rotas de excluir o usuário e editá-lo
+- Criação da estilização dos templates criados
+
+## Próximo passo
+- Adição do restante das rotas e dos respectivos templates
+
+## Dificuldades encontradas
+
+- Divergências na nomenclatura de algumas rotas nos blueprints. Essas divergências aconteciam no jinja, como por exemplo `url_for('user.perfil')` era o certo, mas lá estava `url_for('usuario.perfil')`.
+
+## Como resolvi
+- Renomeando, nada difícil.
