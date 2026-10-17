@@ -25,3 +25,9 @@
 .btn-excluir{background:#dc2626;color:#fff}
 .btn-excluir:hover{background:#b91c1c}
 @media(max-width:480px){.form-acoes{flex-direction:column-reverse}}
+.perfil-card{position:relative}
+.perfil-icones{position:absolute;top:1rem;right:1rem;display:flex;gap:.4rem}
+.icone-acao{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--cinza-100);color:var(--azul-500);border:2px solid transparent;transition:background .15s,color .15s}
+.icone-acao:hover{background:var(--azul-100);text-decoration:none}
+.icone-acao-perigo{color:#dc2626}
+.icone-acao-perigo:hover{background:#fee2e2}

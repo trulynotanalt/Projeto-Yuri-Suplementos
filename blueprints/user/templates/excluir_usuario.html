@@ -11,9 +11,9 @@
   <div class="card auth-card auth-card-perigo">
     <h1>Deseja realmente excluir sua conta?</h1>
 
-    <form action="post">
-      <a class="btn btn-contorno" href="{{ url_for('usuario_perfil') }}">Cancelar</a>
-      <a class="btn btn-excluir" href="{{ url_for('usuario_excluir') }}">Excluir Conta</a>
+    <form action="#" method="get" >
+      <button class="btn btn-contorno" type="submit" formaction="{{url_for('user.perfil')}}" formmethod="GET" > Cancelar</button>
+      <button class="btn btn-excluir" type="submit" formaction="{{url_for('user.excluir')}}" formmethod="POST"> Excluir Conta</button>
     </form>
   </div>
 </section>
