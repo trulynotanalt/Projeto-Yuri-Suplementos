@@ -1,58 +1,19 @@
-{% extends 'base.html' %}
-{% from 'macros.html' import preco, icone %}
-
-{% block title %}Carrinho{% endblock %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/carrinho.css') }}">
-{% endblock %}
-
-{% block content %}
-{% set itens = carrinho.produtos if carrinho else [] %}
-{% set total = itens|sum(attribute='preco') %}
-
-<section class="secao">
-  <div class="container">
-    <h1>Seu carrinho</h1>
-
-    {% if itens %}
-    <div class="carrinho-grid">
-      <div class="card">
-        {% for p in itens %}
-        <div class="item-carrinho">
-          <div class="item-icone" aria-hidden="true">{{ icone(p.categoria) }}</div>
-          <div>
-            <h3><a href="{{ url_for('produto.loja_detalhes', id=p.id) }}">{{ p.nome }}</a></h3>
-            <span class="tag">{{ p.categoria }}</span>
-          </div>
-          <span class="preco">{{ preco(p.preco) }}</span>
-          <form method="post" action="/carrinho/remover/{{ p.id }}">
-            <button type="submit" class="btn btn-perigo" aria-label="Remover {{ p.nome }} do carrinho">Remover</button>
-          </form>
-        </div>
-        {% endfor %}
-      </div>
-
-      <aside class="card resumo-carrinho">
-        <h2>Resumo do pedido</h2>
-        <div class="linha"><span>Itens</span><span>{{ itens|length }}</span></div>
-        <div class="linha"><span>Subtotal</span><span>{{ preco(total) }}</span></div>
-        <div class="linha linha-total"><span>Total</span><span>{{ preco(total) }}</span></div>
-
-        <form method="post" action="/compra/finalizar">
-          <button type="submit" class="btn btn-verde btn-block">Finalizar compra</button>
-        </form>
-        <a class="btn btn-contorno btn-block" href="{{ url_for('produto.loja') }}">Continuar comprando</a>
-      </aside>
-    </div>
-
-    {% else %}
-    <div class="card vazio carrinho-vazio">
-      <h2>Seu carrinho está vazio</h2>
-      <p>Adicione suplementos da loja para vê-los aqui.</p>
-      <a class="btn btn-amarelo" href="{{ url_for('produto.loja') }}">Ir para a loja</a>
-    </div>
-    {% endif %}
-  </div>
-</section>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>carrinho</h1>
+    {% for c in carrinho %}
+        <!-- <p><a href="{{ url_for('produtos.listar', produto_id=produto.id ) }}">{{c.produto.nome}}</a></p> futura otimização aq ou na img -->
+        <!-- <img src="" alt=""> -->
+        <p>{{c.produto.nome}}</p>
+        <p>{{c.produto.preco}}</p>
+        <!-- <a href="{{ url_for('compras.comprar' ) }}">comprar</a> trabalhar aq tbm-->
+    {% endfor %}
+    
+</body>
+</html>
