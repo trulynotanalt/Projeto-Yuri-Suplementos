@@ -99,6 +99,13 @@ def popular_banco():
             informacao="Estimulador neural para dobramento extremo do cérebro, perfeito para quem quer ficar grande não só no braço como na mente." 
             
         ),
+        Produto(
+            nome="GH Anderson",
+            preco=72.90,
+            categoria="Bateu Morreu",
+            informacao="Desidrata que nem o sol do nordeste e deixa o cara trincado que Parede rachada de casa quitada em 35 anos.  " 
+                    
+        ),
     ]
 
     with nova_sessao() as session:

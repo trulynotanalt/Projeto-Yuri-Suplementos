@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-{% set lista_categorias = categorias if categorias is defined and categorias else ['Bomba', 'Magia Muscular', 'Pré-Treino'] %}
+{% set lista_categorias = categorias if categorias is defined and categorias else ['Bomba', 'Magia Muscular', 'Pré-Treino', 'Bateu Morreu'] %}
 {% set categoria_ativa = request.args.get('categoria', '') %}
 
 <section class="loja-topo">
