@@ -94,3 +94,21 @@ Um usuário pode ter 1 ou mais (N) compras ao longo do tempo enquanto cada compr
 
 # Instruções para executar o sistema;
 - Para executar o sistema basta utilizar o comando `flask run --debug` e copiar o endereço do servidor que aparece no prompt de comando.
+
+# Instruções para criar ou popular o banco;
+- Para criar e popular o banco basta utilizar o comando `python seed.py` após ter realizado a instalação das dependências anteriores.
+
+# Declaração de autoria:
+Declaro que desenvolvemos este projeto e compreendendos o código entregue e que
+sou capaz de explicar e modificar suas partes principais.
+
+#Uso de IA:
+## [ ] Não utilizmos IA generativa.
+## [X] Utilizamos IA generativa e descrevo abaixo como foi utilizada.
+
+# Descrição do uso, se houver:
+- utilizamos recursos generativos para produzir e modificar as imagens dos produtos do nosso sistema.
+- utilizamos recursos generativos para indicar, revisar e corrigir APENAS elementos de estilização e de definição do layout da página, bem como construções repetitivas de html bruto
+
+# Justificativa e menções sobre o uso da IA generativa
+- Não foi utilizada IA generativa para criar, modificar ou introduzir códigos novos na produção das Camadas dos Controllers e dos Modelos, a construção das entidades, criação dos métodos das entidades, definição dos relacionamentos, população e idealização dos produtos, integração entre as diferentes camadas, correções de bugs nas lógicas de código dos controllers, estruturação das pastas e arquivos, lógica geral de funcionamento do site como adicionar, criar, editar ou remover elementos. Acreditamos que o foco principal desse projeto é testar as habilidades introduzidas e ministradas pelo docente Romerito Campos ao decorrer das disciplinas, perder tempo que poderia ser usado para aperfeiçoar o foco da disciplina em complicações com CSS e HTML foi considerado algo ineficiente de forma unânime entre o grupo.
