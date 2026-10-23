@@ -10,6 +10,9 @@
     {% for c in carrinho %}
         <p>{{c.nome}}</p>
         <p>{{c.preco}}</p>
+        <form method="post" action="/carrinho/remover/{{ c.id }}">
+            <button type="submit">remover</button>
+      </form>
     {% else %}
     <p>carrinho vazio</p>
     {% endfor %}

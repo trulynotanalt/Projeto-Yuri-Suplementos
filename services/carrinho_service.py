@@ -23,3 +23,14 @@ def adicionar_carrinho(usuario_id,produto_id):
         if produto not in carrinho.produtos:
             carrinho.produtos.append(produto)
         session.commit()
+
+def remover_carrinho(usuario_id,produto_id):
+    with nova_sessao() as session:
+        produto = session.get(Produto, produto_id)
+        carrinho = session.scalar(
+            select(Carrinho).where(Carrinho.usuario_id == usuario_id)
+        )
+        if produto not in carrinho.produtos:
+            flash('produto n esta no carrinho')
+        carrinho.produtos.remove(produto)
+        session.commit()
