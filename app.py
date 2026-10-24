@@ -1,5 +1,5 @@
 from flask import Flask, render_template, session
-from services import produto_service
+from services import produto_service, comentario_service
 from blueprints.auth import auth_bp
 from blueprints.carrinho import carrinho_bp
 from blueprints.compra import compra_bp
@@ -14,14 +14,15 @@ app.register_blueprint(compra_bp)
 app.register_blueprint(produto_bp)
 app.register_blueprint(user_bp)
 
-
-if __name__ == "__main__":
-    app.run(debug=True)
-
 @app.route('/')
 def index():
     sugestoes = produto_service.listar_sugestoes()
     comprados = []
+    comentarios=comentario_service.listar_comentarios()
     if 'usuario_id' in session:
         comprados = produto_service.listar_produtos_comprados(session['usuario_id'])
-    return render_template('index.html', sugestoes=sugestoes, produtos_comprados=comprados)
+    
+    return render_template('index.html',sugestoes=sugestoes,produtos_comprados=comprados,comentariosp = comentarios)
+
+if __name__ == "__main__":
+    app.run(debug=True)

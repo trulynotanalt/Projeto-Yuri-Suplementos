@@ -1,5 +1,5 @@
-from typing import List
-from sqlalchemy import String, Float, ForeignKey, Table, Column, Date
+from typing import List, Optional
+from sqlalchemy import String, Float, ForeignKey, Table, Column, Date, CheckConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from database import Base
 
@@ -13,6 +13,7 @@ class Usuario(Base):
 
     carrinho: Mapped[List['Carrinho']] = relationship(back_populates='usuario')
     compras: Mapped[List['Compra']] = relationship(back_populates='usuario')
+    comentarios: Mapped[List['Comentario']] = relationship(back_populates='usuario')
 
 carrinho_produto = Table(
     'carrinho_produto',
@@ -27,7 +28,6 @@ compra_produto = Table(
     Column('compra_id', ForeignKey('compra.id'), primary_key=True),
     Column('produto_id', ForeignKey('produto.id'), primary_key=True)
 )
-
 
 class Compra(Base):
     __tablename__ = 'compra'
@@ -59,4 +59,17 @@ class Produto(Base):
     informacao: Mapped[str] = mapped_column(String(400), nullable = False)
     compras: Mapped[List['Compra']] = relationship(secondary=compra_produto, back_populates='produtos_compra')
     carrinho: Mapped[List['Carrinho']] = relationship(secondary=carrinho_produto, back_populates='produtos')
+    comentarios: Mapped[List['Comentario']] = relationship(back_populates='produto')
 
+class Comentario(Base):
+    __tablename__ = 'comentario'
+    id: Mapped[int] = mapped_column(primary_key=True)
+    texto: Mapped[str] = mapped_column(String(500), nullable=False)
+    autor: Mapped[str] = mapped_column(String(50), nullable=False)
+    nota: Mapped[int] = mapped_column(nullable=False)
+
+    usuario_id: Mapped[Optional[int]] = mapped_column(ForeignKey('usuario.id'), nullable=True)
+    usuario: Mapped[Optional['Usuario']] = relationship(back_populates='comentarios')
+
+    produto_id: Mapped[int] = mapped_column(ForeignKey('produto.id'), nullable=False)
+    produto: Mapped['Produto'] = relationship(back_populates='comentarios')

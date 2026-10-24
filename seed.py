@@ -1,5 +1,5 @@
 from database import nova_sessao, criar_banco, Base
-from models.entidades import Produto
+from models.entidades import Produto, Comentario
 
 def popular_banco():
     produtos = [
@@ -93,10 +93,10 @@ def popular_banco():
             informacao="Contém enzimas que contraem seu abdomen involuntariamente, deixando-o trincado que nem ferro. "
         ),
         Produto(
-            nome="Jeizons MegaBrain",
+            nome="Cleysys MegaBrain",
             preco=539.90,
             categoria="Magia Muscular",
-            informacao="Estimulador neural para dobramento extremo do cérebro, perfeito para quem quer ficar grande não só no braço como na mente." 
+            informacao="Estimulador neural para dobramento extremo do cérebro, para aqueles que querem tirar da gordura e dar ao saber" 
             
         ),
         Produto(
@@ -108,15 +108,33 @@ def popular_banco():
         ),
     ]
 
-    with nova_sessao() as session:
-        
-        qtd_existente = session.query(Produto).count()
-        if qtd_existente > 0:
-            return None
 
-        session.add_all(produtos)
-        session.commit()
+    
+    comentarios = [
+        ("Rafael M.", "Starters train", 5, "Comecei a malhar faz um mês e o Starters train foi perfeito: calorias na medida, com vitaminas e proteínas sem exagero."),
+        ("Camila S.", "25-25 power", 4, "Braço e perna responderam bem. Mas o aviso é real: usei demais e fiquei um pouco lesada. Com moderação é ótimo."),
+        ("Lucas P.", "A noite treina", 5, "Treino de madrugada é comigo. A cafeína com proteína me segurou até a última série."),
+        ("Ana B.", "Alegria do jojo", 5, "Parece piada, mas o cuscuz líquido funciona. Fica pronto em 15 minutos e a potência nos treinos subiu muito."),
+        ("Diego F.", "Segredinho dos 40 da Caixa", 4, "Ganhei massa rápido, como diz a descrição. O aviso sobre a cabeça lisa também é verdade."),
+        ("Marina T.", "Hirobraço e Nagapeito", 5, "São duas bombas em uma só. Braço e peito cresceram em poucas semanas. Me senti como se estivesse em umas certas cidades japonesas."),
+        ("Bruno A.", "Medeiros Growth", 5, "18 ovos com whey de baunilha: fiquei grandão sem ganhar gordura, e o sabor é ótimo."),
+        ("Henrique L.", "Pó do yuri", 4, "É caro, mas é o pó proteico que o próprio Yuri das lendas usava. Meu shape está chegando perto do dele."),
+    ]
+
+    with nova_sessao() as session:
+
         
+        if session.query(Produto).count() == 0:
+            session.add_all(produtos)
+            session.flush()
+
+        if session.query(Comentario).count() == 0:
+            por_nome = {p.nome: p for p in session.query(Produto).all()}
+            for autor, produto_nome, nota, texto in comentarios:
+                comentario_p = Comentario(autor = autor, nota = nota, texto = texto, produto = por_nome[produto_nome])
+                session.add(comentario_p)
+
+        session.commit()
 
 if __name__ == "__main__":
     criar_banco()
