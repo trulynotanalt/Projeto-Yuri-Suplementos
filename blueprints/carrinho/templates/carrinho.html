@@ -13,6 +13,9 @@
         <form method="post" action="/carrinho/remover/{{ c.id }}">
             <button type="submit">remover</button>
       </form>
+      <form method="post" action="/compra/comprar/{{ c.id }}">
+            <button type="submit">comprar</button>
+      </form>
     {% else %}
     <p>carrinho vazio</p>
     {% endfor %}
