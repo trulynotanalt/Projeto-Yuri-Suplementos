@@ -18,7 +18,10 @@
     </nav>
 
     <div class="detalhe">
-      <div class="detalhe-img" aria-hidden="true">{{ icone(produto.categoria) }}</div>
+      {% set img = imagem_produto_url(produto) %}
+      <div class="detalhe-img"{% if not img %} aria-hidden="true"{% endif %}>
+        {% if img %}<img src="{{ img }}" alt="{{ produto.nome }}">{% else %}{{ icone(produto.categoria) }}{% endif %}
+      </div>
 
       <div class="detalhe-info">
         <span class="tag">{{ produto.categoria }}</span>
