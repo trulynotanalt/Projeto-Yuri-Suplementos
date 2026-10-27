@@ -12,13 +12,13 @@ Sistema de produtos
 # Responsabilidade principal de cada integrante;
 
 ### Pedro Henrique Medeiros dos Santos:
-- 
--
--
--
--
--
--
+- Criou estrutura base do projeto + repositório no github e estruturação dos documentos do README e DIÁRIO na wiki.
+- Responsável pela camada Models com a criação e alteração das entidades e seus relacionamentos, bem como suas colunas.
+- Responsável pelo seed.py e criação dos objetos que compõem o banco.
+- Responsável pela estrutura MVC, services e Blueprint da Entidade Produto.
+- Criador dos serviços das imagens dos produtos e comentários.
+- Revisor de commits e tratamento na limpeza dos comentários e código.
+- Criador parcial das imagens utilizadas no projeto.
 ### Jeizon Gomes da Silva Filho:
 - 
 -
@@ -64,6 +64,12 @@ O sistema Yuri Suplementos tem o objetivo de permitir que usuários possam compr
 - `preco` (Float)
 - `informacao` (String)
 
+### Comentários
+- `id` (Integer, PK)
+- `texto` (String)
+- `autor` (String)
+- `nota` (int)
+
 ### carrinho_produto (Tabela Intermediária N:N)
 - `carrinho_id` (Integer, FK -> carrinho.id, PK)
 - `produto_id` (Integer, FK -> produto.id, PK)
@@ -72,11 +78,16 @@ O sistema Yuri Suplementos tem o objetivo de permitir que usuários possam compr
 - `compra_id` (Integer, FK -> compra.id, PK)
 - `produto_id` (Integer, FK -> produto.id, PK)
 
+
 # Explicação do relacionamento 1:N ;
-Um usuário pode ter 1 ou mais (N) compras ao longo do tempo enquanto cada compra é única para cada usuario.
+- 1 usuário pode ter 1 ou mais (N) compras ao longo do tempo enquanto cada compra é única para cada usuario.
+- 1 usuário pode ter 1 ou mais (N) carrinhos ao longo do tempo enquanto está utilizando o site.
+- 1 usuário pode ter 1 ou mais (N) comentários sobre 1 ou mais (N) produtos.
+- 1 produto pode ter 1 ou mais (N) comentários enquanto 1 comentário pertence a 1 produto, já que um mesmo comentário não pode (ou não deveria, aparecer em produtos diferentes).
 
 # Explicação do relacionamento N:N ;
-1 Carrinho pode ter 1 ou mais (N) compras presentes ao mesmo tempo que 1 compra pode constar em 1 ou mais (N) carrinhos. Uma compra pode ter um ou mais produtos nela, da mesma forma que um produto pode aparecer em uma ou mais compras.
+- 1 Carrinho pode ter 1 ou mais (N) produtos presentes ao mesmo tempo que 1 produto pode constar em 1 ou mais (N) carrinhos. 
+- 1 compra pode ter um ou mais produtos nela, da mesma forma que um produto pode aparecer em 1 ou mais (N) compras.
 
 # Instruções para instalar dependências;
 - 1: Criar o ambiente vitual. `py -m venv env`
@@ -108,7 +119,8 @@ sou capaz de explicar e modificar suas partes principais.
 
 # Descrição do uso, se houver:
 - utilizamos recursos generativos para produzir e modificar as imagens dos produtos do nosso sistema.
-- utilizamos recursos generativos para indicar, revisar e corrigir APENAS elementos de estilização e de definição do layout da página, bem como construções repetitivas de html bruto
+- utilizamos recursos generativos para indicar, revisar e corrigir APENAS elementos de estilização e de definição do layout da página, bem como construções repetitivas de html bruto.
+- utilizamos recursos generativos para realizar a construção das imagens dos produtos.
 
 # Justificativa e menções sobre o uso da IA generativa
 - Não foi utilizada IA generativa para criar, modificar ou introduzir códigos novos na produção das Camadas dos Controllers e dos Modelos, a construção das entidades, criação dos métodos das entidades, definição dos relacionamentos, população e idealização dos produtos, integração entre as diferentes camadas, correções de bugs nas lógicas de código dos controllers, estruturação das pastas e arquivos, lógica geral de funcionamento do site como adicionar, criar, editar ou remover elementos. Acreditamos que o foco principal desse projeto é testar as habilidades introduzidas e ministradas pelo docente Romerito Campos ao decorrer das disciplinas, perder tempo que poderia ser usado para aperfeiçoar o foco da disciplina em complicações com CSS e HTML foi considerado algo ineficiente de forma unânime entre o grupo.
