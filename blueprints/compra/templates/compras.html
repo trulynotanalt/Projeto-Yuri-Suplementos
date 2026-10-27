@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import preco, icone %}
+
+{% block title %}Minhas compras{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/compra.css') }}">
+{% endblock %}
+
+{% block content %}
+{% set lista_compras = compras if compras is defined and compras else (usuario.compras if usuario is defined and usuario else []) %}
+{% set ns = namespace(gasto=0, itens=0) %}
+{% for c in lista_compras %}
+  {% for p in c.produtos_compra %}
+    {% set ns.gasto = ns.gasto + p.preco %}
+    {% set ns.itens = ns.itens + 1 %}
+  {% endfor %}
+{% endfor %}
+
+<section class="secao">
+  <div class="container">
+    <div class="compras-topo">
+      <div>
+        <h1>Minhas compras</h1>
+        <p>Toque em uma compra para ver o que veio nela.</p>
+      </div>
+      <a class="btn btn-contorno" href="/perfil">Voltar ao perfil</a>
+    </div>
+
+    {% if not session.get('usuario_id') %}
+      <div class="convite-compras">
+        <div>
+          <h2>Entre para ver suas compras</h2>
+          <p>O histórico aparece aqui depois que você acessar sua conta.</p>
+        </div>
+        <a class="btn btn-amarelo" href="{{ url_for('auth.login') }}">Entrar na conta</a>
+      </div>
+
+    {% elif lista_compras %}
+      <div class="resumo-compras">
+        <div><strong>{{ lista_compras|length }}</strong>compra{{ 's' if lista_compras|length != 1 }}</div>
+        <div><strong>{{ ns.itens }}</strong>produto{{ 's' if ns.itens != 1 }}</div>
+        <div><strong>{{ preco(ns.gasto) }}</strong>total gasto</div>
+      </div>
+
+      <div class="lista-compras">
+        {% for compra in lista_compras|sort(attribute='data_criacao', reverse=true) %}
+        <details class="compra-item" {% if loop.first %}open{% endif %}>
+          <summary>
+            <div class="compra-resumo">
+              <h2>{{ compra.descricao }}</h2>
+              <span class="compra-meta">
+                {{ compra.data_criacao.strftime('%d/%m/%Y') }}
+                · {{ compra.produtos_compra|length }} produto{{ 's' if compra.produtos_compra|length != 1 }}
+              </span>
+            </div>
+            <span class="preco">{{ preco(compra.produtos_compra|sum(attribute='preco')) }}</span>
+          </summary>
+
+          <div class="compra-conteudo">
+            {% for p in compra.produtos_compra %}
+            <div class="compra-linha">
+              <div class="compra-icone" aria-hidden="true">{{ icone(p.categoria) }}</div>
+              <div>
+                <h3><a href="{{ url_for('produto.loja_detalhes', id=p.id) }}">{{ p.nome }}</a></h3>
+                <span class="tag">{{ p.categoria }}</span>
+              </div>
+              <span class="compra-preco">{{ preco(p.preco) }}</span>
+              <form method="post" action="/carrinho/adicionar/{{ p.id }}">
+                <button type="submit" class="btn btn-verde btn-sm">Comprar de novo</button>
+              </form>
+            </div>
+            {% endfor %}
+
+            <div class="compra-total">
+              <span>Total da compra</span>
+              <strong>{{ preco(compra.produtos_compra|sum(attribute='preco')) }}</strong>
+            </div>
+          </div>
+        </details>
+        {% endfor %}
+      </div>
+
+    {% else %}
+      <div class="card vazio">
+        <h2>Você ainda não fez nenhuma compra</h2>
+        <p>Quando você finalizar um pedido, ele aparece aqui com todos os produtos.</p>
+        <a class="btn btn-amarelo" href="{{ url_for('produto.loja') }}">Ir para a loja</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

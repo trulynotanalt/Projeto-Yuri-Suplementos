@@ -12,7 +12,9 @@
 .migalhas{margin-bottom:1.2rem;font-size:.9rem;color:var(--cinza-500)}
 .migalhas a{color:var(--cinza-500)}
 .detalhe{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
-.detalhe-img{display:grid;place-items:center;aspect-ratio:1;font-size:7rem;border:1px solid var(--cinza-200);border-radius:14px;background:linear-gradient(135deg,var(--azul-100),var(--verde-100))}
+.detalhe-img{display:grid;place-items:center;aspect-ratio:3/4;font-size:7rem;border:1px solid var(--cinza-200);border-radius:14px;background:linear-gradient(135deg,var(--azul-100),var(--verde-100))}
+.detalhe-img{overflow:hidden;position:relative}
+.detalhe-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
 .detalhe-info{display:flex;flex-direction:column;gap:.9rem}
 .detalhe-info h1{margin:0}
 .compra-form{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:.4rem}

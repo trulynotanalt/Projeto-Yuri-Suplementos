@@ -32,17 +32,6 @@
   </div>
 </section>
 
-{% set lista_comentarios = comentarios if comentarios is defined and comentarios else [
-  {'autor': 'Rafael M.', 'produto': 'Starters train', 'nota': 5, 'texto': 'Comecei a malhar faz um mês e o Starters train foi perfeito: calorias na medida, com vitaminas e proteínas sem exagero.'},
-  {'autor': 'Camila S.', 'produto': '25-25 power', 'nota': 4, 'texto': 'Braço e perna responderam bem. Mas o aviso é real: usei demais e fiquei um pouco lesada. Com moderação é ótimo.'},
-  {'autor': 'Lucas P.', 'produto': 'A noite treina', 'nota': 5, 'texto': 'Treino de madrugada é comigo. A cafeína com proteína me segurou até a última série.'},
-  {'autor': 'Ana B.', 'produto': 'Alegria do jojo', 'nota': 5, 'texto': 'Parece piada, mas o cuscuz líquido funciona. Fica pronto em 15 minutos e a potência nos treinos subiu muito.'},
-  {'autor': 'Diego F.', 'produto': 'Segredinho dos 40 da Caixa', 'nota': 4, 'texto': 'Ganhei massa rápido, como diz a descrição. O aviso sobre a cabeça lisa também é verdade.'},
-  {'autor': 'Marina T.', 'produto': 'Hirobraço e Nagapeito', 'nota': 5, 'texto': 'São duas bombas em uma só. Braço e peito cresceram em poucas semanas. Me senti como se estivesse em umas certas cidades japonesas.'},
-  {'autor': 'Bruno A.', 'produto': 'Medeiros Growth', 'nota': 5, 'texto': '18 ovos com whey de baunilha: fiquei grandão sem ganhar gordura, e o sabor é ótimo.'},
-  {'autor': 'Henrique L.', 'produto': 'Pó do yuri', 'nota': 4, 'texto': 'É caro, mas é o pó proteico que o próprio Yuri das lendas usava. Meu shape está chegando perto do dele.'}
-] %}
-
 <section class="secao secao-branca">
   <div class="container">
     <div class="faixa-topo">
@@ -57,17 +46,19 @@
     </div>
 
     <div class="carrossel" id="comentarios">
-      {% for c in lista_comentarios %}
+      {% for c in comentariosp %}
       <div class="slide slide-comentario">
         <article class="comentario">
           <span class="estrelas" aria-label="Nota {{ c.nota }} de 5">{{ '★' * c.nota }}{{ '☆' * (5 - c.nota) }}</span>
           <p>{{ c.texto }}</p>
           <div class="comentario-autor">
             <span class="avatar" aria-hidden="true">{{ c.autor[0] }}</span>
-            <span>{{ c.autor }}<small>sobre {{ c.produto }}</small></span>
+            <span>{{ c.autor }}<small>sobre {{ c.produto.nome }}</small></span>
           </div>
         </article>
       </div>
+      {% else %}
+        <div class="vazio slide-vazio">Ainda não há avaliações.</div>
       {% endfor %}
     </div>
   </div>
