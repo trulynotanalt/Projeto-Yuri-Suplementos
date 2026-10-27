@@ -20,13 +20,13 @@ def popular_banco():
             nome="Treino dos psicóticos",
             preco=210.00,
             categoria="Pré-Treino",
-            informacao="Potencializador de performance e resistência muscular para os ratões da academia."
+            informacao="Potencializador para todos os neuróticos e todos aqueles que treinam sem se importar com a realidade presente."
         ),
         Produto(
             nome="A noite treina",
             preco=119.90,
             categoria="Pré-Treino",
-            informacao="Fórmula concentrada em cafeína e proteínas para madrugar no treino."
+            informacao="Fórmula secreta desenvolvida pela empresa Gym Labs Wayne, do famoso batman, com o objetivo de fazer da noite o local de trabalho dos seus músculos"
         ),
         Produto(
             nome="Treino dos moggers",
@@ -64,7 +64,7 @@ def popular_banco():
             nome="Hirobraço e Nagapeito",
             preco=249.90,
             categoria="Bomba",
-            informacao="São 2 bombas em uma só, aumenta seus braços e peitos em até 5cm."
+            informacao="São 2 bombas em uma só, aumenta seus braços e peitos em até 5cm. Os japoneses tremem."
         ),
 
         
@@ -78,7 +78,7 @@ def popular_banco():
             nome="A perna do cangaço",
             preco=239.90,
             categoria="Magia Muscular",
-            informacao="Faz suas pernas ficarem tão fortes quanto a de um maratonista ai..."
+            informacao="Faz suas pernas ficarem tão fortes quanto a de um maratonista ai... (OBS) O produto é vendido por injeção, escolha bem a perna"
         ),
         Produto(
             nome="Medeiros Growth",
@@ -113,12 +113,12 @@ def popular_banco():
     comentarios = [
         ("Rafael M.", "Starters train", 5, "Comecei a malhar faz um mês e o Starters train foi perfeito: calorias na medida, com vitaminas e proteínas sem exagero."),
         ("Camila S.", "25-25 power", 4, "Braço e perna responderam bem. Mas o aviso é real: usei demais e fiquei um pouco lesada. Com moderação é ótimo."),
-        ("Lucas P.", "A noite treina", 5, "Treino de madrugada é comigo. A cafeína com proteína me segurou até a última série."),
-        ("Ana B.", "Alegria do jojo", 5, "Parece piada, mas o cuscuz líquido funciona. Fica pronto em 15 minutos e a potência nos treinos subiu muito."),
-        ("Diego F.", "Segredinho dos 40 da Caixa", 4, "Ganhei massa rápido, como diz a descrição. O aviso sobre a cabeça lisa também é verdade."),
+        ("Lucas P.", "A noite treina", 5, "Treino de madrugada é comigo. A cafeína com proteína me segurou até a última série. I Am BATMAN"),
+        ("Ana B.", "Alegria do jojo", 5, "Parece piada, mas o cuscuz líquido funciona. Fica pronto em 15 minutos e a potência nos treinos subiu muito. Só precisa inalar tudo de uma vez só"),
+        ("Diego F.", "Segredinho dos 40 da Caixa", 4, "Ganhei massa rápido, como diz a descrição. O aviso sobre a cabeça lisa também é verdade. Não há juros que tankem esse shape."),
         ("Marina T.", "Hirobraço e Nagapeito", 5, "São duas bombas em uma só. Braço e peito cresceram em poucas semanas. Me senti como se estivesse em umas certas cidades japonesas."),
-        ("Bruno A.", "Medeiros Growth", 5, "18 ovos com whey de baunilha: fiquei grandão sem ganhar gordura, e o sabor é ótimo."),
-        ("Henrique L.", "Pó do yuri", 4, "É caro, mas é o pó proteico que o próprio Yuri das lendas usava. Meu shape está chegando perto do dele."),
+        ("Bruno A.", "Medeiros Growth", 5, "18 ovos com whey de baunilha: fiquei grandão sem ganhar gordura, e o sabor é ótimo. Fui do nerd magrelo ao chad em 4 semanas!"),
+        ("Henrique L.", "Po do yuri", 4, "É caro, mas é o pó proteico que o próprio Yuri das lendas usava. Meu shape está chegando perto do dele."),
     ]
 
     with nova_sessao() as session:
