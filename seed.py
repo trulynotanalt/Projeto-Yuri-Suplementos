@@ -29,10 +29,10 @@ def popular_banco():
             informacao="Fórmula concentrada em cafeína e proteínas para madrugar no treino."
         ),
         Produto(
-            nome="O Pós-Treino",
+            nome="Treino dos moggers",
             preco=555.00,
             categoria="Pré-Treino",
-            informacao="Efeito pump prolongado por 12 horas e máxima vascularização. Substitui todos os tipos de refeições possíveis devido a sua contentração em carboidratos, vitaminas, proteinas e lipídeos."
+            informacao="Apenas os alfas usam esse produto para recuperar a jawline e as definições dos sigmas, betinhas precisam se afastar dos riscos potenciais desse pré-treino"
         ),
 
         
@@ -69,7 +69,7 @@ def popular_banco():
 
         
         Produto(
-            nome="Pó do yuri",
+            nome="Po do yuri",
             preco=1000.67,
             categoria="Magia Muscular",
             informacao="Pó proteico usado pelo Grande e ilustre Pedro Yuri em seus tempos aureos, iguala seu shape ao dele."
@@ -93,7 +93,7 @@ def popular_banco():
             informacao="Contém enzimas que contraem seu abdomen involuntariamente, deixando-o trincado que nem ferro. "
         ),
         Produto(
-            nome="Jeizons MegaBrain",
+            nome="Cleysys MegaBrain",
             preco=539.90,
             categoria="Magia Muscular",
             informacao="Estimulador neural para dobramento extremo do cérebro, perfeito para quem quer ficar grande não só no braço como na mente." 
