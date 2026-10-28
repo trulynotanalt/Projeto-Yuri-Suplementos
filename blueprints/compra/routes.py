@@ -6,18 +6,18 @@ from services.produto_service import *
 
 @compra_bp.route('/compra')
 def compra():
-    compra = listar_compra(session['usuario_id'])
-    return render_template('compra.html', compra=compra)
+    compras = listar_compra(session['usuario_id'])
+    return render_template('compras.html', compras=compras)
 
-@compra_bp.route('/compra/comprar/<int:id>', methods=['GET','POST'])
-def compra_adicionar(id):
+@compra_bp.route('/compra/finalizar', methods=['GET','POST'])
+def compra_adicionar():
     if request.method == 'POST':
-        adicionar_compra(session['usuario_id'], id)
-        remover_carrinho(session['usuario_id'], id)
+        carrinho = listar_carrinho(session['usuario_id'])
+        if not carrinho:
+            flash('não tem produtos no carrinho')
+        for produto in carrinho:
+            adicionar_compra(session['usuario_id'], produto.id)
+            remover_carrinho(session['usuario_id'], produto.id)
+        flash('compra efetuada')
         return redirect(url_for('compra.compra'))
 
-@compra_bp.route('/compra/remover/<int:id>', methods=['GET','POST'])
-def compra_remover(id):
-    if request.method == 'POST':
-        remover_compra(session['usuario_id'], id)
-        return redirect(url_for('compra.compra'))

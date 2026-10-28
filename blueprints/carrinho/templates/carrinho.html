@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-{% set itens = carrinho.produtos if carrinho else [] %}
+{% set itens = carrinho if carrinho else [] %}
 {% set total = itens|sum(attribute='preco') %}
 
 <section class="secao">
