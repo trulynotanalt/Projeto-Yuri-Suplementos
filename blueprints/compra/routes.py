@@ -6,11 +6,18 @@ from services.produto_service import *
 
 @compra_bp.route('/compra')
 def compra():
+    if 'usuario_id' not in session:
+            flash('Você não está logado')
+            return redirect(url_for('login'))
+    
     compras = listar_compra(session['usuario_id'])
     return render_template('compras.html', compras=compras)
 
 @compra_bp.route('/compra/finalizar', methods=['GET','POST'])
 def compra_adicionar():
+    if 'usuario_id' not in session:
+            flash('Você não está logado')
+            return redirect(url_for('login'))
     if request.method == 'POST':
         carrinho = listar_carrinho(session['usuario_id'])
         if not carrinho:
