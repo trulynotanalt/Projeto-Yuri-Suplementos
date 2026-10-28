@@ -19,7 +19,7 @@
 {% block content %}
 {% set u = usuario if usuario is defined and usuario else none %}
 {% set nome_usuario = u.nome if u else session.get('usuario_nome', '') %}
-{% set compras_usuario = u.compras if u else [] %}
+{% set compras_usuario = u.compras if u else none %}
 
 {% set ns = namespace(gasto=0, itens=0) %}
 {% for c in compras_usuario %}

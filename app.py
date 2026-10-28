@@ -24,7 +24,6 @@ def imagem_produto_url(produto):
         return url_for('static', filename=f'img/produtos/{arquivo}')
     else: None
 
-
 if __name__ == "__main__":
     app.run(debug=True)
 

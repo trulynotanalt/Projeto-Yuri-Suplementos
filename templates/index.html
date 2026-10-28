@@ -72,7 +72,7 @@
           <h2>Produtos que você já comprou</h2>
           <p>Repita o pedido com um clique.</p>
         </div>
-        <a class="btn btn-contorno btn-sm" href="/perfil">Ver histórico completo</a>
+        <a class="btn btn-contorno btn-sm" href="{{url_for('user.perfil')}}">Ver histórico completo</a>
       </div>
 
       {% if produtos_comprados %}

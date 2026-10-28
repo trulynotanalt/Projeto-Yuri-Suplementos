@@ -9,8 +9,10 @@ def perfil():
         return redirect(url_for('login'))
 
     usuario = service.get_usuario(int(session.get('usuario_id')))
+    
+    
     comprados = produto_service.listar_produtos_comprados(session.get('usuario_id'))
-
+    
     return render_template('perfil_usuario.html', usuario=usuario, produtos_comprados=comprados)
 
 @user_bp.route('/usuario/editar', methods=['GET', 'POST'])
