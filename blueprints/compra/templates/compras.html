@@ -24,7 +24,7 @@
         <h1>Minhas compras</h1>
         <p>Toque em uma compra para ver o que veio nela.</p>
       </div>
-      <a class="btn btn-contorno" href="/perfil">Voltar ao perfil</a>
+      <a class="btn btn-contorno" href="{{ url_for('user.perfil') }}">Voltar ao perfil</a>
     </div>
 
     {% if not session.get('usuario_id') %}
@@ -60,7 +60,9 @@
           <div class="compra-conteudo">
             {% for p in compra.produtos_compra %}
             <div class="compra-linha">
-              <div class="compra-icone" aria-hidden="true">{{ icone(p.categoria) }}</div>
+              {% set img = imagem_produto_url(p) %}
+              {% if img %} <a class="produto-img" href="{{ url_for('produto.loja_detalhes', id=p.id) }}"><img src="{{img}}" alt="{{p.nome}}" loading="lazy" ></a>
+              {% else %}<div class="compra-icone" aria-hidden="true">{{ icone(p.categoria) }}</div>{% endif %}
               <div>
                 <h3><a href="{{ url_for('produto.loja_detalhes', id=p.id) }}">{{ p.nome }}</a></h3>
                 <span class="tag">{{ p.categoria }}</span>

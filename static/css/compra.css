@@ -21,6 +21,7 @@
 .compra-conteudo{padding:0 1.3rem 1.2rem;border-top:1px solid var(--cinza-200)}
 .compra-linha{display:grid;grid-template-columns:56px 1fr auto auto;gap:1rem;align-items:center;padding:.9rem 0;border-bottom:1px solid var(--cinza-100)}
 .compra-icone{display:grid;place-items:center;width:56px;height:56px;font-size:1.6rem;border-radius:10px;background:linear-gradient(135deg,var(--azul-100),var(--verde-100))}
+.compra-linha img{width: 100%; height: 100%; display: block; object-fit: cover; border-radius: 8px;}
 .compra-linha h3{margin:0 0 .2rem}
 .compra-linha h3 a{color:var(--azul-900)}
 .compra-preco{font:800 1rem var(--fonte-titulo);color:var(--azul-900)}
