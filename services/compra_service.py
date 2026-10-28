@@ -7,8 +7,13 @@ from datetime import date
 
 def listar_compra(usuario_id):
     with nova_sessao() as session:
-        stmt = (select(Produto).join(Produto.compras).where(Compra.usuario_id == usuario_id))
-        return list(session.scalars(stmt).all())
+        stmt = (select(Compra).where(Compra.usuario_id == usuario_id))
+        compras = list(session.scalars(stmt).all())
+
+        for compra in compras:
+            list(compra.produtos_compra)
+
+        return compras
 
 def adicionar_compra(usuario_id,produto_id):
     with nova_sessao() as session:
@@ -18,10 +23,16 @@ def adicionar_compra(usuario_id,produto_id):
         compra = session.scalar(
             select(Compra).where(Compra.usuario_id == usuario_id)
         )
+        
+        if produto.comentarios:
+            descricao = produto.comentarios[0].texto
+        else:
+            descricao = 'produto bom'
+        
         if compra is None:
             compra = Compra(
                 usuario_id=usuario_id,
-                descricao=Produto.informacao,
+                descricao=descricao,
                 data_criacao=date.today())
             session.add(compra)
         if produto not in compra.produtos_compra:
