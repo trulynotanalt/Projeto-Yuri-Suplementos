@@ -1,5 +1,5 @@
 from typing import List, Optional
-from sqlalchemy import String, Float, ForeignKey, Table, Column, Date, CheckConstraint
+from sqlalchemy import String, Float, ForeignKey, Table, Column, Date, CheckConstraint, Integer
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from database import Base
 
@@ -19,7 +19,8 @@ carrinho_produto = Table(
     'carrinho_produto',
     Base.metadata,
     Column('carrinho_id', ForeignKey('carrinho.id'), primary_key=True),
-    Column('produto_id', ForeignKey('produto.id'), primary_key=True)
+    Column('produto_id', ForeignKey('produto.id'), primary_key=True),
+    Column('quantidade', Integer, nullable=False, default=1)
 )
 
 compra_produto = Table(
