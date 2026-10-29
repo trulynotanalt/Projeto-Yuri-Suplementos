@@ -9,7 +9,10 @@
 
 {% block content %}
 {% set itens = carrinho if carrinho else [] %}
-{% set total = itens|sum(attribute='preco') %}
+{% set total = namespace(valor=0) %}
+{% for p, quantidade in itens %}
+    {% set total.valor = total.valor + p.preco * quantidade %}
+{% endfor %}
 
 <section class="secao">
   <div class="container">
@@ -20,7 +23,7 @@
     <div class="carrinho-grid">
       <div class="card">
         
-        {% for p in itens %}
+        {% for p, quantidade in itens %}
         <div class="item-carrinho">
           {% set img = imagem_produto_url(p) %}
           {% if img %} <a class="produto-img" href="{{ url_for('produto.loja_detalhes', id=p.id) }}"><img src="{{img}}" alt="{{p.nome}}" loading="lazy" ></a>
@@ -30,6 +33,13 @@
             <span class="tag">{{ p.categoria }}</span>
           </div>
           <span class="preco">{{ preco(p.preco) }}</span>
+          <span class="preco">{{ quantidade }}</span>
+          <form method="post" action="/carrinho/adicionar/{{ p.id }}">
+            <button type="submit" class="btn btn-perigo" aria-label="adicionar {{ p.nome }} +1 ao carrinho">adicionar</button>
+          </form>
+          <form method="post" action="/carrinho/retirar/{{ p.id }}">
+            <button type="submit" class="btn btn-perigo" aria-label="retirar {{ p.nome }} -1 do carrinho">retirar</button>
+          </form>
           <form method="post" action="/carrinho/remover/{{ p.id }}">
             <button type="submit" class="btn btn-perigo" aria-label="Remover {{ p.nome }} do carrinho">Remover</button>
           </form>
@@ -40,8 +50,8 @@
       <aside class="card resumo-carrinho">
         <h2>Resumo do pedido</h2>
         <div class="linha"><span>Itens</span><span>{{ itens|length }}</span></div>
-        <div class="linha"><span>Subtotal</span><span>{{ preco(total) }}</span></div>
-        <div class="linha linha-total"><span>Total</span><span>{{ preco(total) }}</span></div>
+        <div class="linha"><span>Subtotal</span><span>{{ preco(total.valor) }}</span></div>
+        <div class="linha linha-total"><span>Total</span><span>{{ preco(total.valor) }}</span></div>
 
         <form method="post" action="/compra/finalizar">
           <button type="submit" class="btn btn-verde btn-block">Finalizar compra</button>
