@@ -23,8 +23,7 @@ def compra_adicionar():
         if not carrinho:
             flash('não tem produtos no carrinho')
         for produto, quantidade in carrinho:
-            for _ in range(quantidade):
-                adicionar_compra(session['usuario_id'], produto.id)
+            adicionar_compra(session['usuario_id'], produto.id, quantidade)
             remover_carrinho(session['usuario_id'], produto.id)
         flash('compra efetuada')
         return redirect(url_for('compra.compra'))

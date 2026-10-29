@@ -27,7 +27,8 @@ compra_produto = Table(
     'compra_produto',
     Base.metadata,
     Column('compra_id', ForeignKey('compra.id'), primary_key=True),
-    Column('produto_id', ForeignKey('produto.id'), primary_key=True)
+    Column('produto_id', ForeignKey('produto.id'), primary_key=True),
+    Column('quantidade', Integer, nullable=False, default=1)
 )
 
 class Compra(Base):
