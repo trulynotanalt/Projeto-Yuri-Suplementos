@@ -8,7 +8,7 @@ from services.produto_service import *
 def compra():
     if 'usuario_id' not in session:
             flash('Você não está logado')
-            return redirect(url_for('login'))
+            return redirect(url_for('auth.login'))
     
     compras = listar_compra(session['usuario_id'])
     return render_template('compras.html', compras=compras)
@@ -17,13 +17,14 @@ def compra():
 def compra_adicionar():
     if 'usuario_id' not in session:
             flash('Você não está logado')
-            return redirect(url_for('login'))
+            return redirect(url_for('auth.login'))
     if request.method == 'POST':
         carrinho = listar_carrinho(session['usuario_id'])
         if not carrinho:
             flash('não tem produtos no carrinho')
-        for produto in carrinho:
-            adicionar_compra(session['usuario_id'], produto.id)
+        for produto, quantidade in carrinho:
+            for _ in range(quantidade):
+                adicionar_compra(session['usuario_id'], produto.id)
             remover_carrinho(session['usuario_id'], produto.id)
         flash('compra efetuada')
         return redirect(url_for('compra.compra'))

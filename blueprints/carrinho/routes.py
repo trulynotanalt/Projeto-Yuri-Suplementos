@@ -7,7 +7,7 @@ from services.produto_service import *
 def carrinho():
     if 'usuario_id' not in session:
             flash('Você não está logado')
-            return redirect(url_for('login'))
+            return redirect(url_for('auth.login'))
     
     carrinho = listar_carrinho(session['usuario_id'])
     return render_template('carrinho.html', carrinho=carrinho)
@@ -16,7 +16,7 @@ def carrinho():
 def carrinho_adicionar(id):
     if 'usuario_id' not in session:
             flash('Você não está logado')
-            return redirect(url_for('login'))
+            return redirect(url_for('auth.login'))
     
     if request.method == 'POST':
         adicionar_carrinho(session['usuario_id'], id)
@@ -26,8 +26,19 @@ def carrinho_adicionar(id):
 def carrinho_remover(id):
     if 'usuario_id' not in session:
             flash('Você não está logado')
-            return redirect(url_for('login'))
+            return redirect(url_for('auth.login'))
     
     if request.method == 'POST':
         remover_carrinho(session['usuario_id'], id)
         return redirect(url_for('carrinho.carrinho'))
+
+@carrinho_bp.route('/carrinho/retirar/<int:id>', methods=['GET','POST'])
+def carrinho_retirar(id):
+    if 'usuario_id' not in session:
+            flash('Você não está logado')
+            return redirect(url_for('auth.login'))
+    
+    if request.method == 'POST':
+        retirar_carrinho(session['usuario_id'], id)
+        return redirect(url_for('carrinho.carrinho'))
+
