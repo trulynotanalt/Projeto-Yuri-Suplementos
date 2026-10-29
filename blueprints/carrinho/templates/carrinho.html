@@ -35,13 +35,13 @@
           <span class="preco">{{ preco(p.preco) }}</span>
           <span class="preco">{{ quantidade }}</span>
           <form method="post" action="/carrinho/adicionar/{{ p.id }}">
-            <button type="submit" class="btn btn-perigo" aria-label="adicionar {{ p.nome }} +1 ao carrinho">adicionar</button>
+            <button type="submit" class="btn btn-adiciona" aria-label="adicionar {{ p.nome }} +1 ao carrinho">adicionar</button>
           </form>
           <form method="post" action="/carrinho/retirar/{{ p.id }}">
             <button type="submit" class="btn btn-perigo" aria-label="retirar {{ p.nome }} -1 do carrinho">retirar</button>
           </form>
           <form method="post" action="/carrinho/remover/{{ p.id }}">
-            <button type="submit" class="btn btn-perigo" aria-label="Remover {{ p.nome }} do carrinho">Remover</button>
+            <button type="submit" class="btn btn-remover" aria-label="Remover {{ p.nome }} do carrinho">Remover</button>
           </form>
         </div>
         {% endfor %}

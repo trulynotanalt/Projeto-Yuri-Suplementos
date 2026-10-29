@@ -71,7 +71,7 @@
         </div>
         <ul>
           {% for p in compra.produtos_compra %}
-          <li>
+          <li class="nomesc">
             <a href="{{ url_for('produto.loja_detalhes', id=p.id) }}"><span aria-hidden="true">{{ icone(p.categoria) }}</span> {{ p.nome }}</a>
             <span>{{ preco(p.preco) }}</span>
           </li>

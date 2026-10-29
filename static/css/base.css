@@ -2,6 +2,7 @@
   --azul-900:#0a1f5c; --azul-700:#1240b8; --azul-500:#2563eb; --azul-100:#e3ecff;
   --verde-600:#15803d; --verde-500:#22a24f; --verde-100:#dcf5e3;
   --amarelo-500:#f5b301; --amarelo-400:#fbc531; --amarelo-100:#fff4cc;
+  --vermelho-100: #f5938f;
   --preto:#0d0d0d; --branco:#fff;
   --cinza-900:#1f2430; --cinza-500:#6b7280; --cinza-200:#e5e7eb; --cinza-100:#f3f4f6;
   --fonte-titulo:'Archivo',system-ui,sans-serif;
@@ -37,6 +38,11 @@ a:hover{text-decoration:underline}
 .btn-contorno{background:transparent;border-color:var(--azul-500);color:var(--azul-500)}
 .btn-contorno:hover{background:var(--azul-100)}
 .btn-perigo{background:transparent;color:#b91c1c;padding:.3rem .6rem;border-radius:6px}
+.btn-perigo:hover{background:var(--vermelho-100)}
+.btn-remover{background:transparent;color:var(--amarelo-500);padding:.3rem .6rem;border-radius:6px}
+.btn-remover:hover{background:var(--amarelo-100)}
+.btn-adiciona{background:transparent;color:#22a24f;padding:.3rem .6rem;border-radius:6px}
+.btn-adiciona:hover{background:var(--verde-100)}
 .btn-sm{padding:.45rem .9rem;font-size:.85rem}
 .btn-block{width:100%}
 
