@@ -2,6 +2,8 @@ from models import Usuario
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 from database import nova_sessao
+from services.result import Result
+from sqlalchemy.exc import IntegrityError
 
 
 def get_usuario(id):
@@ -20,19 +22,27 @@ def get_usuario_por_email(email):
     return user
 
 def create_usuario( nome, email, senha_hash):
-    with nova_sessao() as session:
-        usuario =  Usuario(
-            nome = nome,
-            email = email,
-            senha_hash = senha_hash,
-        )
+    try:
+        with nova_sessao() as session:
+            usuario =  Usuario(
+                nome = nome,
+                email = email,
+                senha_hash = senha_hash,
+            )
+            session.add(usuario)
+            session.commit()
+            session.refresh(usuario)
 
-        session.add(usuario)
-        session.commit()
+    except IntegrityError as error:
+        session.rollback()
+        if "UNIQUE constraint failed" in str(error):
+            result = Result(False, "Já existe uma conta com alguma destas Informações")
+            return result
 
-        session.refresh(usuario)
+        result = Result(False, "Ocorreu um erro, tente novamente", None)
 
-    return usuario
+    result = Result(True, None, usuario)
+    return result
 
 
 def update_usuario(id, nome = None, email = None):

@@ -26,6 +26,10 @@ def login():
         session['usuario_id'] = usuario.id
 
         return redirect(url_for('index', usuario=usuario))
+    else:
+        flash('Usuário ou senha incorretos')
+        return redirect(url_for('auth.login'))
+    
 
 @auth_bp.route('/auth/cadastro', methods=['GET', 'POST'])
 def cadastro():
@@ -41,12 +45,13 @@ def cadastro():
     senha = request.form.get('senha')
     senha_hash = generate_password_hash(senha)
 
-    usuario = service.create_usuario(nome=nome, email=email, senha_hash=senha_hash)
+    result = service.create_usuario(nome=nome, email=email, senha_hash=senha_hash)
 
-    if usuario is None:
-        flash('Alguma informação está inválida')
+    if not result.success:
+        flash(result.message)
         return redirect(url_for('auth.cadastro'))
     
+    usuario = result.data
     session['usuario_nome'] = usuario.nome
     session['usuario_id'] = usuario.id
 
