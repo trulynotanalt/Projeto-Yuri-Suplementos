@@ -31,15 +31,10 @@ def adicionar_compra(usuario_id,produto_id, quantidade=1):
             select(Compra).where(Compra.usuario_id == usuario_id)
         )
         
-        if produto.comentarios:
-            descricao = produto.comentarios[0].texto
-        else:
-            descricao = 'produto bom'
-        
         if compra is None:
             compra = Compra(
                 usuario_id=usuario_id,
-                descricao=descricao,
+                descricao='Compra',
                 data_criacao=date.today())
             session.add(compra)
             session.flush()

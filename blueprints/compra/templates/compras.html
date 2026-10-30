@@ -44,10 +44,11 @@
 
             <div class="lista-compras">
                 {% for compra, produto, quantidade in lista_compras %}
+                
                     <details class="compra-item" {% if loop.first %}open{% endif %}>
                         <summary>
                             <div class="compra-resumo">
-                                <h2>{{ compra.descricao }}</h2>
+                                <h2>{{ compra.descricao }} {{loop.index}}</h2>
                                 <span class="compra-meta">
                                     {{ compra.data_criacao.strftime('%d/%m/%Y') }}
                                     · Quantidade: {{ quantidade }}
