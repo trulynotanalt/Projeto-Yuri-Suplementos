@@ -58,7 +58,7 @@
     </aside>
 
     <div>
-      <h2>Minhas compras</h2>
+      <h2> <a id="linkacompra" href="{{url_for('compra.compra')}}"> Minhas compras</a> </h2>
 
       {% for compra in compras_usuario|sort(attribute='data_criacao', reverse=true) %}
       <article class="compra">

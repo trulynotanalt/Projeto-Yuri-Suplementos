@@ -1,4 +1,4 @@
-from models import Usuario
+from models import Usuario, Compra
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 from database import nova_sessao
@@ -9,7 +9,7 @@ from sqlalchemy.exc import IntegrityError
 def get_usuario(id):
 
     with nova_sessao() as session:
-        statement = select(Usuario).where(Usuario.id == id).options(selectinload(Usuario.compras))
+        statement = select(Usuario).where(Usuario.id == id).options(selectinload(Usuario.compras).selectinload(Compra.produtos_compra))
         user =  session.scalars(statement).first()
 
     return user
