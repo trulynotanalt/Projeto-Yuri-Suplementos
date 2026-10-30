@@ -67,9 +67,10 @@ def update_usuario(id, nome = None, email = None):
 
 def delete_usuario(id):
     usuario = get_usuario(id)
-    
+
     if usuario is None:
         return False
+    
     with nova_sessao() as session:
         session.delete(usuario)
         session.commit()

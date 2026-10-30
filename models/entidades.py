@@ -11,7 +11,7 @@ class Usuario(Base):
     email: Mapped[str] = mapped_column(String(90), unique=True, nullable = False)
     senha_hash: Mapped[str] = mapped_column(String(220), nullable = False)
 
-    carrinho: Mapped[List['Carrinho']] = relationship(back_populates='usuario')
+    carrinho: Mapped[List['Carrinho']] = relationship(cascade="all, delete-orphan", uselist=False, back_populates='usuario')
     compras: Mapped[List['Compra']] = relationship(back_populates='usuario')
     comentarios: Mapped[List['Comentario']] = relationship(back_populates='usuario')
 
@@ -47,7 +47,7 @@ class Carrinho(Base):
     __tablename__ = 'carrinho'
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    usuario_id: Mapped[int] = mapped_column(ForeignKey('usuario.id'))
+    usuario_id: Mapped[int] = mapped_column(ForeignKey('usuario.id'), unique=True)
     usuario: Mapped['Usuario'] = relationship(back_populates='carrinho')
     produtos: Mapped[List['Produto']] = relationship(secondary=carrinho_produto, back_populates='carrinho')
 
