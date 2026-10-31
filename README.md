@@ -15,7 +15,7 @@ Sistema de produtos
 - Criou estrutura base do projeto + repositório no github e estruturação dos documentos do README e DIÁRIO na wiki.
 - Responsável pela camada Models com a criação e alteração das entidades e seus relacionamentos, bem como suas colunas.
 - Responsável pelo seed.py e criação dos objetos que compõem o banco.
-- Responsável pela estrutura MVC, services e Blueprint da Entidade Produto.
+- Responsável pela estrutura MVC e Blueprint da Entidade Produto.
 - Criador dos serviços das imagens dos produtos e comentários.
 - Revisor de commits e tratamento na limpeza dos comentários e código.
 - Criador parcial das imagens utilizadas no projeto.
@@ -28,13 +28,10 @@ Sistema de produtos
 -
 -
 ### João Victor Noberto Tomaz Santana
-- 
--
--
--
--
--
--
+- Responsável pela liderança da equipe e distribuição das tarefas.
+- Responsável pelas views e blueprints de: user e auth. 
+- Responsável pela criação dos services para separação da lógica de negócio das rotas que recebem as requisições.
+- Criador parcial das imagens utilizadas no projeto.
 
 # Descrição do sistema;
 O sistema Yuri Suplementos tem o objetivo de permitir que usuários possam comprar produtos relacionados a academia, com separação dos itens, compras e carrinhos de cada cliente através do seu id. As compras incluem nomes dos itens, preços, data da compra realizada e comentários opcionais dos clientes. O usuário também pode alterar os dados da compra, como incluir um produto a mais ou a menos, mudar o nome da compra e as descrições daquela compra. Como o projeto tem um foco maior em produtos para academia, o sistema conterá diversos tipos de suplementos e pré-treinos.
