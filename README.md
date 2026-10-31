@@ -19,14 +19,12 @@ Sistema de produtos
 - Criador dos serviços das imagens dos produtos e comentários.
 - Revisor de commits e tratamento na limpeza dos comentários e código.
 - Criador parcial das imagens utilizadas no projeto.
+
 ### Jeizon Gomes da Silva Filho:
-- 
--
--
--
--
--
--
+- Responsável pelas views e blueprints de: compras e carrinho.
+- Responsável principal por encontrar falhas e testar a aplicação.
+- Responsável por adicionar quantidade em toda a aplicação.
+
 ### João Victor Noberto Tomaz Santana
 - Responsável pela liderança da equipe e distribuição das tarefas.
 - Responsável pelas views e blueprints de: user e auth. 
