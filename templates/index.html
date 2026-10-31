@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import card_produto %}
+
+{% block title %}Início{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="secao">
+  <div class="container">
+    <div class="faixa-topo">
+      <div>
+        <h2>Sugestões da loja</h2>
+        <p>Produtos em destaque para o seu treino.</p>
+      </div>
+      <div class="setas">
+        <button type="button" data-alvo="sugestoes" data-dir="-1" aria-label="Anterior">‹</button>
+        <button type="button" data-alvo="sugestoes" data-dir="1" aria-label="Próximo">›</button>
+      </div>
+    </div>
+
+    <div class="carrossel" id="sugestoes">
+      {% for p in sugestoes %}
+        <div class="slide">{{ card_produto(p) }}</div>
+      {% else %}
+        <div class="vazio slide-vazio">Novos produtos chegam em breve.</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="secao secao-branca">
+  <div class="container">
+    <div class="faixa-topo">
+      <div>
+        <h2>O que dizem sobre os produtos</h2>
+        <p>Avaliações de quem já puxou ferro com eles.</p>
+      </div>
+      <div class="setas">
+        <button type="button" data-alvo="comentarios" data-dir="-1" aria-label="Anterior">‹</button>
+        <button type="button" data-alvo="comentarios" data-dir="1" aria-label="Próximo">›</button>
+      </div>
+    </div>
+
+    <div class="carrossel" id="comentarios">
+      {% for c in comentariosp %}
+      <div class="slide slide-comentario">
+        <article class="comentario">
+          <span class="estrelas" aria-label="Nota {{ c.nota }} de 5">{{ '★' * c.nota }}{{ '☆' * (5 - c.nota) }}</span>
+          <p>{{ c.texto }}</p>
+          <div class="comentario-autor">
+            <span class="avatar" aria-hidden="true">{{ c.autor[0] }}</span>
+            <span>{{ c.autor }}<small>sobre {{ c.produto.nome }}</small></span>
+          </div>
+        </article>
+      </div>
+      {% else %}
+        <div class="vazio slide-vazio">Ainda não há avaliações.</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="secao">
+  <div class="container">
+    {% if session.get('usuario_id') %}
+      <div class="faixa-topo">
+        <div>
+          <h2>Produtos que você já comprou</h2>
+          <p>Repita o pedido com um clique.</p>
+        </div>
+        <a class="btn btn-contorno btn-sm" href="{{url_for('user.perfil')}}">Ver histórico completo</a>
+      </div>
+
+      {% if produtos_comprados %}
+        <div class="grid-produtos">
+          {% set vistos = namespace(ids=[]) %}
+          {% for compra, p, quantidade in produtos_comprados %}
+            {% if p.id not in vistos.ids %}
+              {% set vistos.ids = vistos.ids + [p.id] %}
+              {{ card_produto(p) }}
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="card vazio">
+          <h3>Você ainda não fez nenhuma compra</h3>
+          <p>Escolha seu primeiro suplemento na loja.</p>
+          <a class="btn btn-amarelo" href="{{ url_for('produto.loja') }}">Ir para a loja</a>
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="convite">
+        <div>
+          <h2>Já comprou com a gente?</h2>
+          <p>Entre na sua conta para ver os produtos que você comprou e repetir o pedido.</p>
+        </div>
+        <a class="btn btn-amarelo" href="{{ url_for('auth.login') }}">Entrar na conta</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  var reduzMovimento = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function mover(c, dir) {
+    var s = c && c.firstElementChild;
+    if (!s) return;
+    var passo = s.getBoundingClientRect().width + (parseFloat(getComputedStyle(c).columnGap) || 16);
+    var fim = c.scrollLeft + c.clientWidth >= c.scrollWidth - 4;
+    if (dir > 0 && fim) c.scrollTo({ left: 0, behavior: 'smooth' });
+    else c.scrollBy({ left: dir * passo, behavior: 'smooth' });
+  }
+
+  document.querySelectorAll('[data-alvo]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      mover(document.getElementById(b.dataset.alvo), Number(b.dataset.dir));
+    });
+  });
+
+  document.querySelectorAll('.carrossel').forEach(function (c) {
+    var pausado = false;
+    ['mouseenter', 'focusin'].forEach(function (e) { c.addEventListener(e, function () { pausado = true; }); });
+    ['mouseleave', 'focusout'].forEach(function (e) { c.addEventListener(e, function () { pausado = false; }); });
+    if (!reduzMovimento) setInterval(function () { if (!pausado) mover(c, 1); }, 5000);
+  });
+})();
+</script>
+{% endblock %}

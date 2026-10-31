@@ -1,0 +1,35 @@
+{% macro icone(categoria) -%}
+{%- set c = (categoria or '')|lower -%}
+{%- if 'pré' in c or 'pre' in c %}⚡
+{%- elif 'prot' in c or 'whey' in c %}💪
+{%- elif 'creat' in c %}🔥
+{%- elif 'vita' in c %}🍊
+{%- elif 'amino' in c or 'bcaa' in c %}🧬
+{%- else %}🥤
+{%- endif -%}
+{%- endmacro %}
+
+{% macro preco(valor) -%}
+R$ {{ ('%.2f'|format(valor))|replace('.', ',') }}
+{%- endmacro %}
+
+{% macro card_produto(p) %}
+<article class="produto-card">
+  <a class="produto-img" href="{{ url_for('produto.loja_detalhes', id=p.id) }}" aria-label="Ver {{ p.nome }}">
+    {% set img = imagem_produto_url(p) %}
+    {% if img %}<img src="{{ img }}" alt="{{ p.nome }}" loading="lazy">
+    {% else %}<span aria-hidden="true">{{ icone(p.categoria) }}</span>{% endif %}
+  </a>
+  <div class="produto-corpo">
+    <span class="tag">{{ p.categoria }}</span>
+    <h3><a href="{{ url_for('produto.loja_detalhes', id=p.id) }}">{{ p.nome }}</a></h3>
+    <p class="produto-desc">{{ p.informacao|truncate(85) }}</p>
+    <div class="produto-rodape">
+      <span class="preco">{{ preco(p.preco) }}</span>
+      <form method="post" action="/carrinho/adicionar/{{ p.id }}">
+        <button type="submit" class="btn btn-verde btn-sm">Adicionar</button>
+      </form>
+    </div>
+  </div>
+</article>
+{% endmacro %}

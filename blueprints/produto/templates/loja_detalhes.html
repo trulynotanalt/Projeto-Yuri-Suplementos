@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import card_produto, preco, icone %}
+
+{% block title %}{{ produto.nome }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/produto.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="secao">
+  <div class="container">
+    <nav class="migalhas" aria-label="Você está em">
+      <a href="/">Início</a> /
+      <a href="{{ url_for('produto.loja') }}">Loja</a> /
+      <a href="{{ url_for('produto.loja', categoria=produto.categoria) }}">{{ produto.categoria }}</a> /
+      <span>{{ produto.nome }}</span>
+    </nav>
+
+    <div class="detalhe">
+      {% set img = imagem_produto_url(produto) %}
+      <div class="detalhe-img"{% if not img %} aria-hidden="true"{% endif %}>
+        {% if img %}<img src="{{ img }}" alt="{{ produto.nome }}">{% else %}{{ icone(produto.categoria) }}{% endif %}
+      </div>
+
+      <div class="detalhe-info">
+        <span class="tag">{{ produto.categoria }}</span>
+        <h1>{{ produto.nome }}</h1>
+        <div><span class="preco preco-grande">{{ preco(produto.preco) }}</span></div>
+
+        <div class="compra-form">
+          <form method="post" action="/carrinho/adicionar/{{ produto.id }}">
+            <button type="submit" class="btn btn-verde">Adicionar ao carrinho</button>
+          </form>
+          <a class="btn btn-contorno" href="{{ url_for('produto.loja') }}">Continuar na loja</a>
+        </div>
+
+        <div class="info-box">
+          <h3>Informações do produto</h3>
+          <p>{{ produto.informacao }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if relacionados %}
+<section class="secao secao-branca">
+  <div class="container">
+    <h2>Outros produtos de {{ produto.categoria }}</h2>
+    <div class="grid-produtos relacionados-grid">
+      {% for p in relacionados %}{{ card_produto(p) }}{% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}
