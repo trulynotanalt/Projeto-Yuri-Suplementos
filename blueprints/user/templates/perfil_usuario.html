@@ -22,11 +22,10 @@
 {% set compras_usuario = u.compras if u else none %}
 
 {% set ns = namespace(gasto=0, itens=0) %}
-{% for c in compras_usuario %}
-  {% for p in c.produtos_compra %}
-    {% set ns.gasto = ns.gasto + p.preco %}
-    {% set ns.itens = ns.itens + 1 %}
-  {% endfor %}
+
+{% for compra, produto, quantidade in produtos_comprados %}
+    {% set ns.gasto = ns.gasto + (produto.preco * quantidade) %}
+    {% set ns.itens = ns.itens + quantidade %}
 {% endfor %}
 
 <section class="secao">
@@ -61,29 +60,49 @@
       <h2> <a id="linkacompra" href="{{url_for('compra.compra')}}"> Minhas compras</a> </h2>
 
       {% for compra in compras_usuario|sort(attribute='data_criacao', reverse=true) %}
-      <article class="compra">
-        <div class="compra-topo">
-          <div>
-            <h3>{{ compra.descricao }}</h3>
-            <span class="compra-data">{{ compra.data_criacao.strftime('%d/%m/%Y') }}</span>
-          </div>
-          <span class="preco">{{ preco(compra.produtos_compra|sum(attribute='preco')) }}</span>
-        </div>
-        <ul>
-          {% for p in compra.produtos_compra %}
-          <li class="nomesc">
-            <a href="{{ url_for('produto.loja_detalhes', id=p.id) }}"><span aria-hidden="true">{{ icone(p.categoria) }}</span> {{ p.nome }}</a>
-            <span>{{ preco(p.preco) }}</span>
-          </li>
-          {% endfor %}
-        </ul>
-      </article>
+          <article class="compra">
+              <div class="compra-topo">
+                  <div>
+                      <h3>{{ compra.descricao }}</h3>
+                      <span class="compra-data">
+                          {{ compra.data_criacao.strftime('%d/%m/%Y') }}
+                      </span>
+                  </div>
+
+                  {% set total = namespace(valor=0) %}
+
+                  {% for c, produto, quantidade in produtos_comprados %}
+                      {% if c.id == compra.id %}
+                          {% set total.valor = total.valor + (produto.preco * quantidade) %}
+                      {% endif %}
+                  {% endfor %}
+
+                  <span class="preco">{{ preco(total.valor) }}</span>
+              </div>
+
+              <ul>
+                  {% for c, produto, quantidade in produtos_comprados %}
+                      {% if c.id == compra.id %}
+                          <li class="nomesc">
+                              <a href="{{ url_for('produto.loja_detalhes', id=produto.id) }}">
+                                  <span aria-hidden="true">{{ icone(produto.categoria) }}</span>
+                                  {{ produto.nome }}
+                              </a>
+
+                              <span>Quantidade: {{ quantidade }}</span>
+
+                              <span>{{ preco(produto.preco * quantidade) }}</span>
+                          </li>
+                      {% endif %}
+                  {% endfor %}
+              </ul>
+          </article>
       {% else %}
-      <div class="card vazio">
-        <h3>Nenhuma compra por aqui ainda</h3>
-        <p>Quando você finalizar um pedido, ele aparece nesta lista.</p>
-        <a class="btn btn-amarelo" href="{{ url_for('produto.loja') }}">Ver produtos</a>
-      </div>
+          <div class="card vazio">
+              <h3>Nenhuma compra por aqui ainda</h3>
+              <p>Quando você finalizar um pedido, ele aparece nesta lista.</p>
+              <a class="btn btn-amarelo" href="{{ url_for('produto.loja') }}">Ver produtos</a>
+          </div>
       {% endfor %}
     </div>
 
