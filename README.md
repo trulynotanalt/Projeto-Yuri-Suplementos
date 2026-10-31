@@ -30,7 +30,7 @@ Sistema de produtos
 ### João Victor Noberto Tomaz Santana
 - Responsável pela liderança da equipe e distribuição das tarefas.
 - Responsável pelas views e blueprints de: user e auth. 
-- Responsável pela criação dos services para separação da lógica de negócio das rotas que recebem as requisições.
+- Responsável pela criação da camada dos services para separação da lógica de negócio das rotas que recebem as requisições.
 - Criador parcial das imagens utilizadas no projeto.
 
 # Descrição do sistema;
