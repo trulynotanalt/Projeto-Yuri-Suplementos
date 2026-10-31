@@ -22,6 +22,7 @@ Sistema de produtos
 
 ### Jeizon Gomes da Silva Filho:
 - Responsável pelas views e blueprints de: compras e carrinho.
+- Responsável pelos services de: compras e carrinho.
 - Responsável principal por encontrar falhas e testar a aplicação.
 - Responsável por adicionar quantidade em toda a aplicação.
 
