@@ -1,5 +1,5 @@
-from models import Usuario, Compra
-from sqlalchemy import select
+from models import *
+from sqlalchemy import select, delete, update
 from sqlalchemy.orm import selectinload
 from database import nova_sessao
 from services.result import Result
@@ -66,13 +66,24 @@ def update_usuario(id, nome = None, email = None):
 
 
 def delete_usuario(id):
-    usuario = get_usuario(id)
-
-    if usuario is None:
-        return False
-    
     with nova_sessao() as session:
-        session.delete(usuario)
+        usuario = session.get(Usuario, id)
+
+        if usuario is None:
+            return False
+
+        compra_ids = select(Compra.id).where(Compra.usuario_id == id)
+        carrinho_ids = select(Carrinho.id).where(Carrinho.usuario_id == id)
+
+        session.execute(delete(compra_produto).where(compra_produto.c.compra_id.in_(compra_ids)))
+        session.execute(delete(Compra).where(Compra.usuario_id == id))
+
+        session.execute(delete(carrinho_produto).where(carrinho_produto.c.carrinho_id.in_(carrinho_ids)))
+        session.execute(delete(Carrinho).where(Carrinho.usuario_id == id))
+
+        session.execute(update(Comentario).where(Comentario.usuario_id == id).values(usuario_id=None))
+
+        session.execute(delete(Usuario).where(Usuario.id == id))
         session.commit()
 
     return True

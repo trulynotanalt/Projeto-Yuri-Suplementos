@@ -77,7 +77,13 @@
 
       {% if produtos_comprados %}
         <div class="grid-produtos">
-          {% for p in produtos_comprados %}{{ card_produto(p) }}{% endfor %}
+          {% set vistos = namespace(ids=[]) %}
+          {% for compra, p, quantidade in produtos_comprados %}
+            {% if p.id not in vistos.ids %}
+              {% set vistos.ids = vistos.ids + [p.id] %}
+              {{ card_produto(p) }}
+            {% endif %}
+          {% endfor %}
         </div>
       {% else %}
         <div class="card vazio">

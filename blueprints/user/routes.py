@@ -9,7 +9,11 @@ def perfil():
         return redirect(url_for('login'))
 
     usuario = service.get_usuario(int(session.get('usuario_id')))
-    
+
+    if usuario is None:
+        session.clear()
+        flash('Sessão inválida, faça login novamente')
+        return redirect(url_for('auth.login'))
     
     comprados = produto_service.listar_produtos_comprados(session.get('usuario_id'))
     
@@ -19,12 +23,16 @@ def perfil():
 def editar():
     if 'usuario_id' not in session:
         flash('Você não está logado')
-        return redirect(url_for('login'))
+        return redirect(url_for('auth.login'))
+
     
     usuario_id = int(session.get('usuario_id'))
 
     if request.method == 'GET':
         usuario = service.get_usuario(usuario_id)
+        if usuario is None:
+            session.clear()
+            return redirect(url_for('auth.login'))
         return render_template('editar_usuario.html', usuario=usuario)
 
     nome = request.form.get('nome')
@@ -38,7 +46,7 @@ def editar():
 def excluir():
     if 'usuario_id' not in session:
         flash('Você não está logado')
-        return redirect(url_for('login'))
+        return redirect(url_for('auth.login'))
     
     if request.method == 'GET':
         return render_template('excluir_usuario.html')

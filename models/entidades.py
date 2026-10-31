@@ -5,14 +5,14 @@ from database import Base
 
 class Usuario(Base):
     __tablename__ = 'usuario'
-
+    __table_args__ = {'sqlite_autoincrement': True}
     id: Mapped[int] = mapped_column(primary_key=True)
     nome: Mapped[str] = mapped_column(String(60), nullable = False)
     email: Mapped[str] = mapped_column(String(90), unique=True, nullable = False)
     senha_hash: Mapped[str] = mapped_column(String(220), nullable = False)
 
     carrinho: Mapped[List['Carrinho']] = relationship(cascade="all, delete-orphan", uselist=False, back_populates='usuario')
-    compras: Mapped[List['Compra']] = relationship(back_populates='usuario')
+    compras: Mapped[List['Compra']] = relationship(cascade="all, delete-orphan", back_populates='usuario')
     comentarios: Mapped[List['Comentario']] = relationship(back_populates='usuario')
 
 carrinho_produto = Table(
@@ -33,7 +33,7 @@ compra_produto = Table(
 
 class Compra(Base):
     __tablename__ = 'compra'
-
+    __table_args__ = {'sqlite_autoincrement': True}
     id: Mapped[int] = mapped_column(primary_key=True)
     descricao: Mapped[str] = mapped_column(String(150), nullable = False)
     data_criacao: Mapped[Date] =  mapped_column(Date, nullable = False)
@@ -45,7 +45,7 @@ class Compra(Base):
 
 class Carrinho(Base):
     __tablename__ = 'carrinho'
-
+    __table_args__ = {'sqlite_autoincrement': True}
     id: Mapped[int] = mapped_column(primary_key=True)
     usuario_id: Mapped[int] = mapped_column(ForeignKey('usuario.id'), unique=True)
     usuario: Mapped['Usuario'] = relationship(back_populates='carrinho')
