@@ -68,10 +68,12 @@ O sistema Yuri Suplementos tem o objetivo de permitir que usuários possam compr
 ### carrinho_produto (Tabela Intermediária N:N)
 - `carrinho_id` (Integer, FK -> carrinho.id, PK)
 - `produto_id` (Integer, FK -> produto.id, PK)
+- `quantidade` (Integer)
 
 ### compra_produto (Tabela Intermediária N:N)
 - `compra_id` (Integer, FK -> compra.id, PK)
 - `produto_id` (Integer, FK -> produto.id, PK)
+- `quantidade` (Integer)
 
 
 # Explicação do relacionamento 1:N ;
