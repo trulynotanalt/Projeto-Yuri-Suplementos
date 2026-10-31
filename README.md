@@ -110,7 +110,7 @@ O sistema Yuri Suplementos tem o objetivo de permitir que usuários possam compr
 Declaro que desenvolvemos este projeto e compreendendos o código entregue e que
 sou capaz de explicar e modificar suas partes principais.
 
-#Uso de IA:
+# Uso de IA:
 ## [ ] Não utilizmos IA generativa.
 ## [X] Utilizamos IA generativa e descrevo abaixo como foi utilizada.
 
