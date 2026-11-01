@@ -23,14 +23,16 @@ Sistema de produtos
 ### Jeizon Gomes da Silva Filho:
 - Responsável pelas views e blueprints de: compras e carrinho.
 - Responsável pelos services de: compras e carrinho.
-- Responsável principal por encontrar falhas e testar a aplicação.
-- Responsável por adicionar quantidade em toda a aplicação.
+- Responsável principal por fazer o QA da aplicação, com testes e busca por bugs.
+- Responsável por adicionar quantidade em toda a aplicação, por meio da implementação correta do cascade nos models.
 
 ### João Victor Noberto Tomaz Santana
 - Responsável pela liderança da equipe e distribuição das tarefas.
+- Corrigi a estrutura do MVC quando necessário.
 - Responsável pelas views e blueprints de: user e auth. 
 - Responsável pela criação da camada dos services para separação da lógica de negócio das rotas que recebem as requisições.
 - Criador parcial das imagens utilizadas no projeto.
+- Responsável pela proteção do login contra senhas inválidas e erros de rota.
 
 # Descrição do sistema;
 O sistema Yuri Suplementos tem o objetivo de permitir que usuários possam comprar produtos relacionados a academia, com separação dos itens, compras e carrinhos de cada cliente através do seu id. As compras incluem nomes dos itens, preços, data da compra realizada e comentários opcionais dos clientes. O usuário também pode alterar os dados da compra, como incluir um produto a mais ou a menos, mudar o nome da compra e as descrições daquela compra. Como o projeto tem um foco maior em produtos para academia, o sistema conterá diversos tipos de suplementos e pré-treinos.
